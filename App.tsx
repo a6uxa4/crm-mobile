@@ -1,8 +1,8 @@
 import {StyleSheet, useColorScheme, View} from 'react-native';
-import Header from './src/screens/header';
+import Header from './src/screens/Header';
 import {Content} from './src/screens';
 import {BackdropProvider} from 'react-native-propel-kit';
-import SelectProduct from './src/screens/select';
+import SelectProduct from './src/screens/SelectProduct';
 
 function App(): React.JSX.Element {
   const isDarkMode = useColorScheme() === 'dark';

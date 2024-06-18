@@ -1,5 +1,5 @@
 import {View} from 'react-native';
-import {Navbar} from './navbar';
+import {Navbar} from './Navbar';
 
 export const Content = () => {
   return (

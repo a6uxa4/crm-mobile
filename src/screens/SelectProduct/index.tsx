@@ -7,10 +7,12 @@ const SelectProduct = () => {
   return (
     <View style={styles.container}>
       <Select
+        confirmTitle="Подтвердить"
+        cancelTitle="Отмена"
         style={[
           styles.select,
           {
-            maxWidth: 180,
+            flex: 4,
             backgroundColor: isDarkMode ? '#1A2A3D' : '#FFFFFF',
             color: isDarkMode ? '#FFFFFF' : '#3D3F44',
           },
@@ -23,16 +25,18 @@ const SelectProduct = () => {
         <Select.Item label="ИП Александров В.В." value="5" />
       </Select>
       <Select
+        confirmTitle="Подтвердить"
+        cancelTitle="Отмена"
         style={[
           styles.select,
           {
-            maxWidth: 220,
+            flex: 6,
             backgroundColor: isDarkMode ? '#1A2A3D' : '#FFFFFF',
             color: isDarkMode ? '#FFFFFF' : '#3D3F44',
           },
         ]}
-        placeholder="Все магазины">
-        <Select.Item label="Все магазины" value="1" />
+        placeholder="Все товары">
+        <Select.Item label="Все товары" value="1" />
         <Select.Item label="ИП Константинов П.В." value="2" />
         <Select.Item label="ИП Степанова С.М." value="3" />
         <Select.Item label="ИП Рахимова Л.Н." value="4" />
