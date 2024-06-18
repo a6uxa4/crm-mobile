@@ -1,19 +1,24 @@
 import {StyleSheet, useColorScheme, View} from 'react-native';
 import Header from './src/screens/header';
 import {Content} from './src/screens';
+import {BackdropProvider} from 'react-native-propel-kit';
+import SelectProduct from './src/screens/select';
 
 function App(): React.JSX.Element {
   const isDarkMode = useColorScheme() === 'dark';
 
   return (
-    <View
-      style={[
-        styles.sectionContainer,
-        {backgroundColor: isDarkMode ? '#4D5473' : '#EEEFF3'},
-      ]}>
-      <Header />
-      <Content />
-    </View>
+    <BackdropProvider>
+      <View
+        style={[
+          styles.sectionContainer,
+          {backgroundColor: isDarkMode ? '#4D5473' : '#EEEFF3'},
+        ]}>
+        <Header />
+        <SelectProduct />
+        <Content />
+      </View>
+    </BackdropProvider>
   );
 }
 
