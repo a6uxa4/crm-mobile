@@ -3,7 +3,6 @@ import Header from './src/screens/Header';
 import {Content} from './src/screens';
 import {BackdropProvider} from 'react-native-propel-kit';
 import SelectProduct from './src/screens/SelectProduct';
-import {Revenues} from './src/screens/Revenues';
 import {Provider} from 'react-redux';
 import {store} from './src/store';
 
@@ -21,7 +20,6 @@ function App(): React.JSX.Element {
           <Header />
           <SelectProduct />
           <Content />
-          <Revenues />
         </View>
       </BackdropProvider>
     </Provider>

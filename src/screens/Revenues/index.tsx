@@ -112,7 +112,7 @@ const styles = StyleSheet.create({
   revenuesContainer: {
     marginTop: 20,
     width: '100%',
-    height: '100%',
+    height: 150,
     paddingHorizontal: 17,
     display: 'flex',
     flexDirection: 'row',
