@@ -62,7 +62,7 @@ const styles = StyleSheet.create({
     display: 'flex',
     alignItems: 'center',
     justifyContent: 'center',
-    fontWeight: 500,
+    fontWeight: '500',
     fontSize: 13,
   },
 });
