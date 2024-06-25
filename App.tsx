@@ -1,4 +1,4 @@
-import {StyleSheet, useColorScheme, View} from 'react-native';
+import {ScrollView, StyleSheet, useColorScheme, View} from 'react-native';
 import Header from './src/screens/Header';
 import {Content} from './src/screens';
 import {BackdropProvider} from 'react-native-propel-kit';
@@ -12,7 +12,7 @@ function App(): React.JSX.Element {
   return (
     <Provider store={store}>
       <BackdropProvider>
-        <View
+        <ScrollView
           style={[
             styles.sectionContainer,
             {backgroundColor: isDarkMode ? '#4D5473' : '#EEEFF3'},
@@ -20,7 +20,7 @@ function App(): React.JSX.Element {
           <Header />
           <SelectProduct />
           <Content />
-        </View>
+        </ScrollView>
       </BackdropProvider>
     </Provider>
   );

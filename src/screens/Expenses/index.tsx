@@ -106,9 +106,7 @@ export const Expenses = () => {
         style={[
           styles.containerRight,
           {backgroundColor: isDarkMode ? '#1A2A3D' : '#FFFFFF'},
-        ]}>
-            
-        </View>
+        ]}></View>
     </View>
   );
 };
