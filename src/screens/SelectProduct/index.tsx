@@ -7,6 +7,7 @@ const SelectProduct = () => {
   return (
     <View style={styles.container}>
       <Select
+        initialValue="1"
         confirmTitle="Подтвердить"
         cancelTitle="Отмена"
         style={[
@@ -25,6 +26,7 @@ const SelectProduct = () => {
         <Select.Item label="ИП Александров В.В." value="5" />
       </Select>
       <Select
+        initialValue="1"
         confirmTitle="Подтвердить"
         cancelTitle="Отмена"
         style={[
