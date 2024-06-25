@@ -1,4 +1,4 @@
-import {useState} from 'react';
+import {ReactNode, useState} from 'react';
 import {
   Animated,
   LayoutChangeEvent,
@@ -8,6 +8,10 @@ import {
   useColorScheme,
   View,
 } from 'react-native';
+import {Residuals} from './Residuals';
+import {ABCAnalize} from './ABCAnalize';
+import {Expenses} from './Expenses';
+import {Publicity} from './Publicity';
 
 export const Analize = () => {
   const isDarkMode = useColorScheme() === 'dark';
@@ -30,6 +34,13 @@ export const Analize = () => {
       toValue: index * tabWidth,
       useNativeDriver: true,
     }).start();
+  };
+
+  const REDIRECT_PAGE: {[key: number]: ReactNode} = {
+    0: <Residuals />,
+    1: <ABCAnalize />,
+    2: <Expenses />,
+    3: <Publicity />,
   };
 
   return (
@@ -86,6 +97,7 @@ export const Analize = () => {
             </TouchableOpacity>
           ))}
         </View>
+        <View style={style.containerInner}>{REDIRECT_PAGE[activeTab]}</View>
       </View>
     </View>
   );
@@ -103,5 +115,11 @@ const style = StyleSheet.create({
     borderRadius: 16,
     display: 'flex',
     alignItems: 'center',
+    paddingBottom: 55,
+  },
+  containerInner: {
+    width: '100%',
+    height: '100%',
+    paddingTop: 10,
   },
 });
