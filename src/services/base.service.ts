@@ -12,7 +12,13 @@ export const baseApi = createApi({
         params,
       }),
     }),
+    getAllExpense: build.query<any, void>({
+      query: () => 'all/expenses'
+    }),
+    getReports: build.query<any, void>({
+      query: () => 'order/get-report'
+    })
   }),
 });
 
-export const {useGetSalesQuery} = baseApi;
+export const {useGetSalesQuery, useGetAllExpenseQuery, useGetReportsQuery} = baseApi;

@@ -1,4 +1,4 @@
-import {StyleSheet, useColorScheme, View} from 'react-native';
+import {StyleSheet, useColorScheme, View, Platform} from 'react-native';
 import {Select} from 'react-native-propel-kit';
 
 const SelectProduct = () => {
@@ -66,6 +66,11 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
     fontWeight: '500',
     fontSize: 13,
+    ...Platform.select({
+      android: {
+        paddingTop:8,
+      },
+    }),
   },
 });
 

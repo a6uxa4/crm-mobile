@@ -1,8 +1,9 @@
 import {View} from 'react-native';
-import {Navbar} from './Navbar';
+import { Navbar } from './navbar';
 import {Revenues} from './Revenues';
 import {Expenses} from './Expenses';
 import {Analize} from './Analize';
+import { Orders } from './Orders';
 
 export const Content = () => {
   return (
@@ -17,6 +18,7 @@ export const Content = () => {
       <Revenues />
       <Expenses />
       <Analize />
+      <Orders />
     </View>
   );
 };

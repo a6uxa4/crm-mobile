@@ -1,6 +1,6 @@
 import {ScrollView, StyleSheet, useColorScheme, View} from 'react-native';
-import Header from './src/screens/Header';
-import {Content} from './src/screens';
+import Header from './src/screens/header';
+import { Content } from './src/screens';
 import {BackdropProvider} from 'react-native-propel-kit';
 import SelectProduct from './src/screens/SelectProduct';
 import {Provider} from 'react-redux';
