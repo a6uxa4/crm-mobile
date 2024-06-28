@@ -21,7 +21,7 @@ export const Expenses = () => {
                   fontWeight: isDarkMode ? '500' : '400',
                 },
               ]}>
-              Выручка
+              Расходы
             </Text>
             <Chip backgroundColor="#2F2F2F4D" title="2,8%" isShort />
           </View>
