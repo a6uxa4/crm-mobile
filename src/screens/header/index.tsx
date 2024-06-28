@@ -1,6 +1,6 @@
 import {StyleSheet, Text, useColorScheme, View} from 'react-native';
 
-const Header = () => {
+export const Header = () => {
   const isDarkMode = useColorScheme() === 'dark';
 
   return (
@@ -42,5 +42,3 @@ const styles = StyleSheet.create({
     alignItems: 'center',
   },
 });
-
-export default Header;
