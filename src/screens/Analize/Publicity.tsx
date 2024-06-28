@@ -11,7 +11,7 @@ export const Publicity = () => {
         alignItems: 'center',
       }}>
       <CircleChart
-        percentage={40}
+        percentage={93}
         width={90}
         height={90}
         strokeWidth={8}

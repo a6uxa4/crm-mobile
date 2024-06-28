@@ -1,5 +1,5 @@
 import React, {useEffect, useRef} from 'react';
-import {View, Text, StyleSheet, Animated} from 'react-native';
+import {View, Text, StyleSheet, Animated, useColorScheme} from 'react-native';
 import Svg, {Circle, Defs, LinearGradient, Stop} from 'react-native-svg';
 
 interface IProps {
@@ -17,6 +17,8 @@ export const CircleChart: React.FC<IProps> = ({
   strokeWidth = 10,
   text = 'ДРР',
 }) => {
+  const isDarkMode = useColorScheme() === 'dark';
+
   const radius = Math.min(width, height) / 2 - strokeWidth / 2;
 
   const circumference = 2 * Math.PI * radius;
@@ -41,21 +43,35 @@ export const CircleChart: React.FC<IProps> = ({
   return (
     <View style={[styles.container, {width, height}]}>
       <View style={styles.textContainer}>
-        {text && <Text style={styles.text}>{text}</Text>}
-        <Text style={styles.percentage}>{percentage}%</Text>
+        {text && (
+          <Text
+            style={[styles.text, {color: isDarkMode ? '#FFFFFF' : '#3D3F44'}]}>
+            {text}
+          </Text>
+        )}
+        <Text
+          style={[
+            styles.percentage,
+            {color: isDarkMode ? '#FFFFFF' : '#3D3F44'},
+          ]}>
+          {percentage}%
+        </Text>
       </View>
       <Svg width={width} height={height}>
         <Defs>
           <LinearGradient id="GradientColor" x1="0" y1="0" x2="1" y2="0">
-            <Stop offset="0%" stopColor="#22AFFF" />
-            <Stop offset="100%" stopColor="#22AFFF" />
+            <Stop offset="0%" stopColor={isDarkMode ? '#22AFFF' : '#039BF1'} />
+            <Stop
+              offset="100%"
+              stopColor={isDarkMode ? '#22AFFF' : '#039BF1'}
+            />
           </LinearGradient>
         </Defs>
         <Circle
           cx={width / 2}
           cy={height / 2}
           r={radius}
-          stroke="#0060A6"
+          stroke={isDarkMode ? '#0060A6' : '#9DD6FF'}
           strokeWidth={strokeWidth}
           fill="transparent"
         />
@@ -92,13 +108,11 @@ const styles = StyleSheet.create({
     alignItems: 'center',
   },
   text: {
-    color: 'white',
     fontSize: 14,
-    fontWeight: 'bold',
+    fontWeight: 400,
   },
   percentage: {
-    fontSize: 14,
-    fontWeight: 'bold',
-    color: 'white',
+    fontSize: 22,
+    fontWeight: 600,
   },
 });
