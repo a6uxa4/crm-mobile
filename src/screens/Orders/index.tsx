@@ -1,25 +1,10 @@
 import {View, StyleSheet, Text, useColorScheme, Dimensions} from 'react-native';
 import {useGetReportsQuery} from '../../services/base.service';
-// import {
-//   VictoryChart,
-//   VictoryBar,
-//   VictoryLine,
-//   VictoryAxis,
-//   VictoryTheme,
-// } from 'victory-native';
 
 export const Orders = () => {
   const {width} = Dimensions.get('window');
   const isDarkMode = useColorScheme() === 'dark';
   const {data} = useGetReportsQuery();
-
-  const chartData = data?.orderReportsDto?.map((item: any, index: number) => ({
-    x: index + 1,
-    orders: item.ordersCount,
-    ransoms: item.ransoms,
-    rejects: item.rejects,
-    returns: item.returns,
-  }));
 
   const Header = [
     {color: '#2898E9', text: 'заказы', fieldName: 'allOrdersCount'},
@@ -28,11 +13,11 @@ export const Orders = () => {
     {color: '#909194', text: 'отказы', fieldName: 'allRejects'},
   ];
 
-  const dataFrom = [
-    { quarter: 1, earnings: 13000 },
-    { quarter: 2, earnings: 16500 },
-    { quarter: 3, earnings: 14250 },
-    { quarter: 4, earnings: 19000 }
+  const charts = [
+    {x: 1, y: 2},
+    {x: 2, y: 3},
+    {x: 3, y: 5},
+    {x: 4, y: 4},
   ];
 
   return (
@@ -78,49 +63,7 @@ export const Orders = () => {
           })}
         </View>
         <View style={style.container}>
-          {/* {chartData && (
-            <VictoryChart
-              theme={VictoryTheme.material}
-              domainPadding={{x: 20}}
-              width={width - 40}
-              height={300}>
-              <VictoryAxis
-                tickValues={chartData.map((d: any) => d.x)}
-                style={{
-                  axis: {stroke: 'transparent'},
-                  ticks: {stroke: 'transparent'},
-                  tickLabels: {fill: '#909194', fontSize: 10},
-                }}
-              />
-              <VictoryBar
-                data={chartData}
-                x="x"
-                y="orders"
-                style={{data: {fill: '#2898E9'}}}
-              />
-              <VictoryBar
-                data={chartData}
-                x="x"
-                y="ransoms"
-                style={{data: {fill: '#415FFF'}}}
-              />
-              <VictoryLine
-                data={chartData}
-                x="x"
-                y="rejects"
-                style={{data: {stroke: '#909194', strokeWidth: 2}}}
-              />
-              <VictoryLine
-                data={chartData}
-                x="x"
-                y="returns"
-                style={{data: {stroke: '#FF6580', strokeWidth: 2}}}
-              />
-            </VictoryChart>
-          )} */}
-          {/* <VictoryChart width={350} theme={VictoryTheme.material}>
-            <VictoryBar data={dataFrom} x="quarter" y="earnings" />
-          </VictoryChart> */}
+          
         </View>
       </View>
     </View>

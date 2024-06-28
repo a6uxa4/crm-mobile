@@ -13,12 +13,24 @@ export const baseApi = createApi({
       }),
     }),
     getAllExpense: build.query<any, void>({
-      query: () => 'all/expenses'
+      query: () => 'all/expenses',
     }),
     getReports: build.query<any, void>({
-      query: () => 'order/get-report'
-    })
+      query: () => 'order/get-report',
+    }),
+    getAbcAnalyze: build.query<any, void>({
+      query: () => 'warehouse-product/abc',
+    }),
+    getRemainQuantity: build.query<any, any>({
+      query: (productId) => `warehouse-product/remain-quantity?productId=${productId}`,
+    }),
   }),
 });
 
-export const {useGetSalesQuery, useGetAllExpenseQuery, useGetReportsQuery} = baseApi;
+export const {
+  useGetSalesQuery,
+  useGetAllExpenseQuery,
+  useGetReportsQuery,
+  useGetAbcAnalyzeQuery,
+  useGetRemainQuantityQuery
+} = baseApi;

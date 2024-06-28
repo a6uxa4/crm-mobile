@@ -18,7 +18,7 @@ export const Content = () => {
       <Revenues />
       <Expenses />
       <Analize />
-      <Orders />
+      {/* <Orders /> */}
     </View>
   );
 };
