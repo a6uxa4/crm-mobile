@@ -3,6 +3,8 @@ import {Navbar} from './Navbar';
 import {Revenues} from './Revenues';
 import {Expenses} from './Expenses';
 import {Analize} from './Analize';
+import {ChartProfit} from './ChartProfit';
+import {ChartOrder} from './ChartOrder';
 
 export const Content = () => {
   return (
@@ -17,6 +19,8 @@ export const Content = () => {
       <Revenues />
       <Expenses />
       <Analize />
+      <ChartProfit />
+      <ChartOrder />
     </View>
   );
 };
