@@ -1,5 +1,7 @@
 import {StyleSheet, Text, useColorScheme, View} from 'react-native';
 import {Chip} from '../../components/Chip';
+import {Gauge} from '../../components/Gauge';
+import {Badge} from '../../components/Badge';
 
 export const Expenses = () => {
   const isDarkMode = useColorScheme() === 'dark';
@@ -32,7 +34,8 @@ export const Expenses = () => {
             styles.containerInner,
             {
               backgroundColor: isDarkMode ? '#1A2A3D' : '#FFFFFF',
-              padding: 10,
+              paddingHorizontal: 10,
+              paddingVertical: 12,
               paddingLeft: 15,
             },
           ]}>
@@ -106,7 +109,83 @@ export const Expenses = () => {
         style={[
           styles.containerRight,
           {backgroundColor: isDarkMode ? '#1A2A3D' : '#FFFFFF'},
-        ]}></View>
+        ]}>
+        <Gauge />
+        <Text
+          style={{
+            color: '#848FA0',
+            fontWeight: 400,
+            fontSize: 14,
+            marginTop: 5,
+          }}>
+          оборачиваемость
+        </Text>
+        <Text
+          style={{
+            color: isDarkMode ? '#FFFFFF' : '#3D3F44',
+            fontWeight: 600,
+            fontSize: 16,
+            marginTop: 3,
+          }}>
+          59 дн
+        </Text>
+        <View style={styles.containerBox}>
+          <View style={styles.box}>
+            <View style={styles.innerBox}>
+              <Badge backgroundColor="#3BDF02" borderColor="#02CE16" isShadow />
+              <Text style={styles.boxText}>CTR</Text>
+            </View>
+            <Text
+              style={[
+                styles.innerText,
+                {color: isDarkMode ? '#FFFFFF' : '#3D3F44'},
+              ]}>
+              11,2%
+            </Text>
+          </View>
+          <View style={styles.box}>
+            <View style={styles.innerBox}>
+              <Badge backgroundColor="#3BDF02" borderColor="#02CE16" isShadow />
+              <Text style={styles.boxText}>ДДР</Text>
+            </View>
+            <Text
+              style={[
+                styles.innerText,
+                {color: isDarkMode ? '#FFFFFF' : '#3D3F44'},
+              ]}>
+              18,2%
+            </Text>
+          </View>
+        </View>
+        <View style={styles.containerBox}>
+          <View style={styles.box}>
+            <View style={styles.innerBox}>
+              <Badge backgroundColor="#3BDF02" borderColor="#02CE16" isShadow />
+              <Text style={styles.boxText}>Выкуп</Text>
+            </View>
+            <Text
+              style={[
+                styles.innerText,
+                {color: isDarkMode ? '#FFFFFF' : '#3D3F44'},
+              ]}>
+              48%
+            </Text>
+          </View>
+          <View style={styles.box}>
+            <View style={styles.innerBox}>
+              <Badge backgroundColor="#FFE920" borderColor="#FBC60B" isShadow />
+              <Text style={styles.boxText}>CPС</Text>
+            </View>
+            <Text
+              style={[
+                styles.innerText,
+                {color: isDarkMode ? '#FFFFFF' : '#3D3F44'},
+              ]}>
+              125 ₽
+            </Text>
+          </View>
+        </View>
+      </View>
     </View>
   );
 };
@@ -120,6 +199,33 @@ const styles = StyleSheet.create({
     display: 'flex',
     flexDirection: 'row',
     gap: 15,
+  },
+  containerBox: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    marginTop: 15,
+    gap: 30,
+  },
+  box: {
+    width: 50,
+    height: 40,
+    display: 'flex',
+    gap: 5,
+  },
+  innerBox: {
+    display: 'flex',
+    flexDirection: 'row',
+    gap: 5,
+    alignItems: 'center',
+  },
+  boxText: {
+    color: '#848FA0',
+    fontWeight: 400,
+    fontSize: 14,
+  },
+  innerText: {
+    fontSize: 16,
+    fontWeight: 600,
   },
   containerLeft: {
     width: '48%',
@@ -153,6 +259,10 @@ const styles = StyleSheet.create({
     width: '48%',
     height: 235,
     borderRadius: 16,
+    display: 'flex',
+    alignItems: 'center',
+    paddingTop: 16,
+    justifyContent: 'flex-start',
   },
   containerInnerB: {
     display: 'flex',
