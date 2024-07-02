@@ -1,7 +1,6 @@
 import {View} from 'react-native';
 import {CircleChart} from '../../components/Circle';
 
-
 export const Publicity = () => {
   return (
     <View
@@ -20,4 +19,4 @@ export const Publicity = () => {
       />
     </View>
   );
-}
+};
