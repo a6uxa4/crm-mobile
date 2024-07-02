@@ -201,10 +201,12 @@ const styles = StyleSheet.create({
     gap: 15,
   },
   containerBox: {
+    width: '100%',
     flexDirection: 'row',
     alignItems: 'center',
+    justifyContent: 'space-around',
     marginTop: 15,
-    gap: 30,
+    paddingHorizontal: 20,
   },
   box: {
     width: 50,
