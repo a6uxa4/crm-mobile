@@ -12,12 +12,12 @@ function App(): React.JSX.Element {
   return (
     <Provider store={store}>
       <BackdropProvider>
+        <Header />
         <ScrollView
           style={[
             styles.sectionContainer,
             {backgroundColor: isDarkMode ? '#4D5473' : '#EEEFF3'},
           ]}>
-          <Header />
           <SelectProduct />
           <Content />
         </ScrollView>
