@@ -132,7 +132,7 @@ const style = StyleSheet.create({
     alignItems: 'flex-end',
     gap: 5,
     position: 'absolute',
-    left: 30,
+    left: '10%',
     top: 27,
   },
   funnelInnerText: {
