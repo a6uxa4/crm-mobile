@@ -118,7 +118,6 @@ const styles = StyleSheet.create({
     borderRadius: 16,
     display: 'flex',
     alignItems: 'center',
-    paddingBottom: 55,
     paddingHorizontal: 15,
   },
   tabBar: {

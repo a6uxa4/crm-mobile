@@ -15,6 +15,8 @@ export const Badge = ({backgroundColor, borderColor, isShadow}: IProps) => {
           backgroundColor,
           borderColor: borderColor || backgroundColor,
           shadowColor: isShadow && backgroundColor,
+          shadowOffset: isShadow && {width: 0, height: 5},
+          shadowOpacity: isShadow && 0.8,
         },
       ]}
     />
@@ -27,8 +29,6 @@ const styles = StyleSheet.create({
     height: 14,
     borderRadius: 100,
     borderWidth: 2,
-    shadowOpacity: 0.8,
-    shadowOffset: {width: 0, height: 5},
     elevation: 5,
     shadowRadius: 10,
   },
