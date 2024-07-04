@@ -1,4 +1,9 @@
-import {RefreshControl, ScrollView, StyleSheet, useColorScheme} from 'react-native';
+import {
+  RefreshControl,
+  ScrollView,
+  StyleSheet,
+  useColorScheme,
+} from 'react-native';
 import {Content} from './src/screens';
 import {Header} from './src/screens/Header';
 import {BackdropProvider} from 'react-native-propel-kit';
@@ -10,6 +15,7 @@ import {useCallback, useState} from 'react';
 function App(): React.JSX.Element {
   const isDarkMode = useColorScheme() === 'dark';
   const [refreshing, setRefreshing] = useState(false);
+  const [refreshKey, setRefreshKey] = useState(0);
 
   const onRefresh = useCallback(() => {
     setRefreshing(true);
@@ -17,11 +23,13 @@ function App(): React.JSX.Element {
     // Например, обновление состояния Redux или запрос к API
     setTimeout(() => {
       setRefreshing(false);
+      // Увеличиваем refreshKey, что вызовет перерендеринг
+      setRefreshKey(prevKey => prevKey + 1);
     }, 2000);
   }, []);
 
   return (
-    <Provider store={store}>
+    <Provider store={store} key={refreshKey}>
       <BackdropProvider>
         <Header />
         <ScrollView
