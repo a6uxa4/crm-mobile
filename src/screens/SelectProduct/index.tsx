@@ -1,4 +1,4 @@
-import {StyleSheet, useColorScheme, View, Platform} from 'react-native';
+import {StyleSheet, useColorScheme, View, Platform, Text} from 'react-native';
 import {Select} from 'react-native-propel-kit';
 
 const SelectProduct = () => {
@@ -6,25 +6,18 @@ const SelectProduct = () => {
 
   return (
     <View style={styles.container}>
-      <Select
-        initialValue="1"
-        confirmTitle="Подтвердить"
-        cancelTitle="Отмена"
+      <View
         style={[
           styles.select,
           {
             flex: 4,
             backgroundColor: isDarkMode ? '#1A2A3D' : '#FFFFFF',
-            color: isDarkMode ? '#FFFFFF' : '#3D3F44',
           },
-        ]}
-        placeholder="Все магазины">
-        <Select.Item label="Все магазины" value="1" />
-        <Select.Item label="ИП Константинов П.В." value="2" />
-        <Select.Item label="ИП Степанова С.М." value="3" />
-        <Select.Item label="ИП Рахимова Л.Н." value="4" />
-        <Select.Item label="ИП Александров В.В." value="5" />
-      </Select>
+        ]}>
+        <Text style={{color: isDarkMode ? '#FFFFFF' : '#3D3F44'}}>
+          Магазины иванов
+        </Text>
+      </View>
       <Select
         initialValue="1"
         confirmTitle="Подтвердить"
@@ -68,7 +61,7 @@ const styles = StyleSheet.create({
     fontSize: 13,
     ...Platform.select({
       android: {
-        paddingTop:8,
+        paddingTop: 8,
       },
     }),
   },
