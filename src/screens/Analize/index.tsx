@@ -59,6 +59,10 @@ export function Analize() {
           navigationState={{index, routes}}
           renderScene={renderScene}
           onIndexChange={setIndex}
+          style={{
+            width: '100%',
+            maxWidth: 350,
+          }}
           renderTabBar={props => (
             <TabBar
               {...props}
@@ -72,6 +76,7 @@ export function Analize() {
               renderLabel={({route, focused}) => (
                 <View
                   style={{
+                    width: 'auto',
                     backgroundColor: !focused
                       ? 'transparent'
                       : isDarkMode
