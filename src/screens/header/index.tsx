@@ -1,4 +1,6 @@
 import {StyleSheet, Text, useColorScheme, View} from 'react-native';
+import UserIcon from '../../assets/icons/UserIcon';
+import MenuIcon from '../../assets/icons/MenuIcon';
 
 export const Header = () => {
   const isDarkMode = useColorScheme() === 'dark';
@@ -12,15 +14,27 @@ export const Header = () => {
       <View style={styles.headerInside}>
         <View
           style={{
-            width: 60,
+            width: 'auto',
             height: 34,
-            backgroundColor: '#018FF5',
+            paddingHorizontal: 8,
+            backgroundColor: isDarkMode ? '#018FF5' : '#55B8FF',
             borderRadius: 30,
             display: 'flex',
             alignItems: 'center',
             justifyContent: 'center',
           }}>
-          <Text style={{fontSize: 18, color: '#1A2A3D'}}>LOGO</Text>
+          <Text
+            style={{
+              fontSize: 18,
+              color: isDarkMode ? '#1A2A3D' : '#FFFFFF',
+              fontWeight: 600,
+            }}>
+            IMPulse
+          </Text>
+        </View>
+        <View style={styles.headerRight}>
+          <MenuIcon />
+          <UserIcon />
         </View>
       </View>
     </View>
@@ -40,5 +54,13 @@ const styles = StyleSheet.create({
     display: 'flex',
     flexDirection: 'row',
     alignItems: 'center',
+    justifyContent: 'space-between',
+  },
+  headerRight: {
+    display: 'flex',
+    flexDirection: 'row',
+    alignItems: 'center',
+    justifyContent: 'center',
+    gap: 15,
   },
 });
