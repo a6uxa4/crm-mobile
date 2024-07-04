@@ -60,6 +60,7 @@ export const Navbar = () => {
           key={index}
           onPress={() => handleTabPress(index)}
           style={{
+            height: '100%',
             flex: 1,
             alignItems: 'center',
             justifyContent: 'center',
