@@ -21,7 +21,7 @@ export const Expenses = () => {
               fontSize: 15,
               color: isDarkMode ? '#FFFFFF' : '#161616',
             }}>
-            <Text style={{fontSize: 13, fontWeight :400}}>Всего: </Text>
+            <Text style={{fontSize: 13, fontWeight: 400}}>Всего: </Text>
             {data?.allExpenditure} ₽
           </Text>
           <Text
@@ -54,7 +54,15 @@ export const Expenses = () => {
                     flexDirection: 'row',
                     alignItems: 'center',
                   }}>
-                  <Text style={{textAlign: 'right', width: 50, fontSize: 14, fontWeight: 400}}>{item.percentage}</Text>
+                  <Text
+                    style={{
+                      textAlign: 'right',
+                      width: 50,
+                      fontSize: 14,
+                      fontWeight: 400,
+                    }}>
+                    {item.percentage}
+                  </Text>
                 </View>
                 <View
                   style={{
@@ -77,14 +85,14 @@ export const Expenses = () => {
                   {item.expenditureName}
                 </Text>
                 <Text
-                style={{
-                  fontSize: 15,
-                  lineHeight: 18,
-                  marginRight: '3%',
-                  color: isDarkMode ? '#FFFFFF' : '#000000',
-                }}>
-                {item.expenditurePrice}
-              </Text>
+                  style={{
+                    fontSize: 15,
+                    lineHeight: 18,
+                    marginRight: '3%',
+                    color: isDarkMode ? '#FFFFFF' : '#000000',
+                  }}>
+                  {item.expenditurePrice}
+                </Text>
               </View>
             ))}
         </View>
@@ -123,7 +131,7 @@ const style = StyleSheet.create({
     flexBasis: 'auto',
     alignItems: 'stretch',
     paddingLeft: 35,
-    paddingTop: 5
+    paddingTop: 5,
   },
   wrapperMain: {
     display: 'flex',

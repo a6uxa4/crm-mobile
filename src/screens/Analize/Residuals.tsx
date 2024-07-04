@@ -1,132 +1,143 @@
-import {Text, View, StyleSheet, useColorScheme} from 'react-native';
-import {useGetRemainQuantityQuery} from '../../services/base.service';
+import {View, StyleSheet, useColorScheme, Text, Animated} from 'react-native';
 import ResidualsIcon from '../../assets/icons/Residuals';
+import {useEffect, useRef} from 'react';
 
 export const Residuals = () => {
   const isDarkMode = useColorScheme() === 'dark';
 
-  const {data} = useGetRemainQuantityQuery(1);
+  const data = [
+    {size: 'XS', sum: 16},
+    {size: 'S', sum: 47},
+    {size: 'M', sum: 53},
+    {size: 'L', sum: 11},
+    {size: 'XL', sum: 23},
+  ];
 
-  const giveTypeIcon = (value: number) => {
-    const type = value < 10 ? '#FB3D3D' : value < 20 ? '#FFCC18' : 'null';
-    return type !== 'null' ? (
-      <View
-        style={{
-          position: 'absolute',
-          left: -30,
-          top: 0,
-          bottom: 0,
-          width: 50,
-          display: 'flex',
-          flexDirection: 'row',
-          alignItems: 'center',
-        }}>
-        <ResidualsIcon color={type} signColor={!isDarkMode && type === '#FB3D3D' ? 'gainsboro': '#1A2A3D'} />
-      </View>
-    ) : null;
+  const minSum = Math.min(...data.map(item => item.sum));
+  const maxSum = Math.max(...data.map(item => item.sum));
+  const animatedWidths = useRef(data.map(() => new Animated.Value(0))).current;
+
+  useEffect(() => {
+    animatedWidths.forEach((anim, index) => {
+      Animated.timing(anim, {
+        toValue: (data[index].sum / maxSum) * 100,
+        duration: 2000,
+        useNativeDriver: false,
+      }).start();
+    });
+  }, []);
+
+  const getIconColor = (sum: number) => {
+    if (sum === minSum)
+      return {
+        color: '#fa3c3d',
+        inside: isDarkMode ? 'black' : '#FFFFFF',
+        container: isDarkMode ? 'transparent' : '#FFE7E7',
+        sumColor: '#FB3D3D',
+      };
+    if (sum === maxSum)
+      return {
+        color: '#ffcc1a',
+        inside: 'black',
+        container: isDarkMode ? 'transparent' : '#F9EDC2',
+        sumColor: isDarkMode ? '#FFCC18' : '#BE8B07',
+      };
+    return {
+      color: 'transparent',
+      inside: 'transparent',
+      container: 'transparent',
+      sumColor: isDarkMode ? '#FFFFFF' : '#3D3F44',
+    };
   };
 
   return (
     <View style={style.wrapper}>
-      <View style={style.container}>
+      <View style={style.textWrapper}>
         <Text
-          style={{
-            fontSize: 15,
-            fontWeight: 400,
-            color: isDarkMode ? '#FFFFFF' : '#161616',
-            paddingLeft: 25,
-          }}>
+          style={[
+            style.ResidTitle,
+            {color: isDarkMode ? '#FFFFFF' : '#161616'},
+          ]}>
           «1292054001 джемпер поло»
         </Text>
-        <View style={style.wrapperInside}>
-          <View style={style.textWrapper}>
+        <View style={style.textInnerWrapper}>
+          <Text
+            style={[
+              style.innerText,
+              {color: isDarkMode ? '#FFFFFF' : '#161616', paddingLeft: 30},
+            ]}>
+            Всего:{' '}
             <Text
-              style={{
-                fontSize: 15,
-                fontWeight: 600,
-                color: isDarkMode ? '#FFFFFF' : '#161616',
-              }}>
-              <Text style={{fontSize: 13, fontWeight: 400}}>Всего: </Text>
-              {data?.allQuantity} шт
+              style={[
+                style.barText,
+                {
+                  color: isDarkMode ? '#FFFFFF' : '#3D3F44',
+                },
+              ]}>
+              152 шт
             </Text>
-            <Text
-              style={{
-                marginLeft: 30,
-                fontSize: 15,
-                marginRight: '3%',
-                color: isDarkMode ? '#B4B4B4' : '#161616',
-              }}>
-              шт
-            </Text>
-          </View>
-          <View style={style.wrapperMapping}>
-            {data &&
-              Object.entries(data?.sizeRemain).map(
-                ([key, value]: any, index: number) => (
-                  <View
-                    style={[
-                      style.wrapperMain,
-                      {backgroundColor: isDarkMode ? '#2F3F51' : '#F4F7F9'},
-                    ]}
-                    key={index}>
-                    {giveTypeIcon(value)}
-                    <View
-                      style={{
-                        position: 'absolute',
-                        left: 0,
-                        top: 0,
-                        bottom: 0,
-                        width: `${value > 100 ? 100: value}%`,
-                        backgroundColor: isDarkMode ? '#4F718D' : '#DBE8ED',
-                        borderRadius: 4,
-                      }}
-                    />
-                    <Text
-                      style={{
-                        fontSize: 15,
-                        lineHeight: 18,
-                        paddingLeft: 15,
-                        color: isDarkMode ? '#FFFFFF' : '#000000',
-                      }}>
-                      {key}
-                    </Text>
-                    <Text
-                      style={{
-                        fontSize: 15,
-                        fontWeight: 600,
-                        lineHeight: 18,
-                        paddingHorizontal: '3%',
-                        color:
-                          value < 10
-                            ? isDarkMode
-                              ? '#FB3D3D'
-                              : 'red'
-                            : value < 20
-                            ? isDarkMode
-                              ? '#FFCC18'
-                              : '#BE8B07'
-                            : isDarkMode
-                            ? '#FFFFFF'
-                            : '#000000',
-                        backgroundColor:
-                          value < 10 && !isDarkMode
-                            ? '#FFE7E7'
-                            : value < 20 && !isDarkMode
-                            ? '#F9EDC2'
-                            : isDarkMode
-                            ? '#2F3F51'
-                            : '#F4F7F9',
-                        borderRadius: 4,
-                        height: '100%',
-                        textAlignVertical: 'center',
-                      }}>
-                      {value}
-                    </Text>
-                  </View>
-                ),
-              )}
-          </View>
+          </Text>
+          <Text
+            style={[
+              style.innerText,
+              {color: isDarkMode ? '#FFFFFF' : '#161616', paddingRight: 10},
+            ]}>
+            шт
+          </Text>
         </View>
+      </View>
+      <View style={style.container}>
+        {data.map((item, index) => (
+          <View key={index} style={style.containerProgress}>
+            <ResidualsIcon
+              color={getIconColor(item.sum).color}
+              signColor={getIconColor(item.sum).inside}
+            />
+            <View
+              style={[
+                style.containerBar,
+                {backgroundColor: isDarkMode ? '#2F3F51' : '#F4F7F9'},
+              ]}>
+              <Animated.View
+                style={[
+                  style.bar,
+                  {
+                    backgroundColor: isDarkMode ? '#4F718D' : '#DBE8ED',
+                    width: animatedWidths[index].interpolate({
+                      inputRange: [0, 100],
+                      outputRange: ['0%', '90%'],
+                    }),
+                  },
+                ]}>
+                <Text
+                  style={[
+                    style.barText,
+                    {color: isDarkMode ? '#FFFFFF' : '#3D3F44'},
+                  ]}>
+                  {item.size}
+                </Text>
+              </Animated.View>
+              <View
+                style={{
+                  width: 27,
+                  height: '100%',
+                  borderRadius: 4,
+                  backgroundColor: getIconColor(item.sum).container,
+                  display: 'flex',
+                  alignItems: 'center',
+                  justifyContent: 'center',
+                }}>
+                <Text
+                  style={[
+                    style.barTextRight,
+                    {color: getIconColor(item.sum).sumColor},
+                  ]}>
+                  {item.sum}
+                </Text>
+              </View>
+            </View>
+          </View>
+        ))}
       </View>
     </View>
   );
@@ -136,46 +147,69 @@ const style = StyleSheet.create({
   wrapper: {
     width: '100%',
     height: '100%',
-    padding: 20,
+    marginTop: 15,
   },
-  container: {
-    width: '100%',
-    height: '100%',
-  },
-  wrapperInside: {
-    width: '100%',
-    height: '90%',
-    marginTop: 5,
+  ResidTitle: {
+    fontWeight: 400,
+    fontSize: 15,
   },
   textWrapper: {
     display: 'flex',
-    justifyContent: 'space-between',
-    flexDirection: 'row',
-    paddingLeft: 25,
+    alignItems: 'flex-start',
+    justifyContent: 'center',
+    gap: 10,
   },
-  wrapperMapping: {
-    display: 'flex',
-    flexDirection: 'column',
-    justifyContent: 'flex-start',
-    flexGrow: 1,
-    flexShrink: 1,
-    flexBasis: 'auto',
-    alignItems: 'stretch',
-    paddingLeft: 25,
-    paddingTop: 5
-  },
-  wrapperMain: {
+  textInnerWrapper: {
+    width: '100%',
     display: 'flex',
     flexDirection: 'row',
-    position: 'relative',
     justifyContent: 'space-between',
     alignItems: 'center',
+  },
+  innerText: {
+    fontWeight: 400,
+    fontSize: 12,
+  },
+  container: {
     width: '100%',
-    height: 'auto',
-    maxHeight: 40,
+    height: '75%',
+    marginTop: 5,
+    display: 'flex',
+    gap: 4,
+  },
+  containerProgress: {
+    width: '100%',
+    display: 'flex',
+    flexDirection: 'row',
+    alignItems: 'center',
+    gap: 7,
+  },
+  containerBar: {
+    minHeight: 30,
+    maxHeight: 30,
+    height: 30,
+    width: '90%',
     borderRadius: 4,
-    flexGrow: 1,
-    flexShrink: 1,
-    marginBottom: 2,
+    display: 'flex',
+    flexDirection: 'row',
+    alignItems: 'center',
+    justifyContent: 'space-between',
+  },
+  bar: {
+    height: '100%',
+    borderRadius: 4,
+    display: 'flex',
+    alignItems: 'flex-end',
+    justifyContent: 'center',
+    paddingRight: 6,
+    overflow: 'hidden',
+  },
+  barText: {
+    fontWeight: 500,
+    fontSize: 14,
+  },
+  barTextRight: {
+    fontSize: 14,
+    fontWeight: 700,
   },
 });

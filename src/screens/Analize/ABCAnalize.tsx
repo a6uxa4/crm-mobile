@@ -13,7 +13,14 @@ export const ABCAnalize = () => {
   //   "c": 10,
   // };
 
-  const COLORS = ['#6DE435', '#70C3FF', '#FB3D3D', '#FFCC18', '#FB3D3D', '#B777CD'];
+  const COLORS = [
+    '#6DE435',
+    '#70C3FF',
+    '#FB3D3D',
+    '#FFCC18',
+    '#FB3D3D',
+    '#B777CD',
+  ];
 
   return (
     <View style={style.wrapper}>

@@ -1,8 +1,7 @@
-import React from 'react';
-import Svg, { Path } from 'react-native-svg';
+import Svg, {Path} from 'react-native-svg';
 
-const ResidualsIcon = ({ size = 24, color = '#FFCC18', signColor = 'black' }) => (
-    <Svg width={size} height={size} viewBox="0 0 24 24">
+const ResidualsIcon = ({color = '#FFCC18', signColor = 'black'}) => (
+  <Svg width="24" height="24" viewBox="0 0 24 24">
     <Path
       d="M12 3L2 20H22L12 3Z"
       fill={color}
