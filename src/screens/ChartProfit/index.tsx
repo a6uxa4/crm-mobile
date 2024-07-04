@@ -2,6 +2,7 @@ import {useState} from 'react';
 import {
   Animated,
   LayoutChangeEvent,
+  ScrollView,
   StyleSheet,
   Text,
   TouchableOpacity,
@@ -9,6 +10,14 @@ import {
   View,
 } from 'react-native';
 import {Badge} from '../../components/Badge';
+import {
+  VictoryChart,
+  VictoryBar,
+  VictoryAxis,
+  VictoryTheme,
+  VictoryGroup,
+} from 'victory-native';
+import {G} from 'react-native-svg';
 
 export const ChartProfit = () => {
   const isDarkMode = useColorScheme() === 'dark';
@@ -32,6 +41,10 @@ export const ChartProfit = () => {
       useNativeDriver: true,
     }).start();
   };
+
+  const hourlyData = Array.from({length: 24}, (_, i) =>
+    (i + 1 + '').padStart(2, '0'),
+  );
 
   return (
     <View
@@ -139,6 +152,105 @@ export const ChartProfit = () => {
           </View>
         </View>
       </View>
+      <ScrollView horizontal showsHorizontalScrollIndicator={false}>
+        <VictoryChart
+          theme={VictoryTheme.material}
+          width={hourlyData.length * 50}
+          height={300}>
+          <VictoryGroup offset={10}>
+            <VictoryBar
+              style={{data: {fill: '#048FF3', width: 8}}}
+              cornerRadius={{top: 2, bottom: 2}}
+              data={[
+                {x: '01', y: 4},
+                {x: '02', y: 4},
+                {x: '03', y: 4},
+                {x: '04', y: 4},
+                {x: '05', y: 4},
+                {x: '06', y: 4},
+                {x: '07', y: 4},
+                {x: '08', y: 4},
+                {x: '09', y: 4},
+                {x: '10', y: 4},
+              ]}
+            />
+            <VictoryBar
+              style={{data: {fill: '#AE014A', width: 8}}}
+              cornerRadius={{top: 2, bottom: 2}}
+              data={[
+                {x: '01', y: 3},
+                {x: '02', y: 3},
+                {x: '03', y: 3},
+                {x: '04', y: 3},
+                {x: '05', y: 3},
+                {x: '06', y: 3},
+                {x: '07', y: 3},
+                {x: '08', y: 3},
+                {x: '09', y: 3},
+                {x: '10', y: 3},
+              ]}
+            />
+            <VictoryBar
+              style={{data: {fill: '#0FC737', width: 8}}}
+              cornerRadius={{top: 2, bottom: 2}}
+              data={[
+                {x: '01', y: 2},
+                {x: '03', y: 2},
+                {x: '04', y: 2},
+                {x: '05', y: 2},
+                {x: '06', y: 2},
+                {x: '07', y: 2},
+                {x: '08', y: 2},
+                {x: '09', y: 2},
+                {x: '10', y: 2},
+              ]}
+            />
+            <VictoryBar
+              style={{data: {fill: '#D10404', width: 8}}}
+              cornerRadius={{top: 2, bottom: 2}}
+              data={[
+                {x: '02', y: -0.3},
+                {x: '03', y: -0.4},
+                {x: '07', y: -0.4},
+                {x: '08', y: -0.2},
+                {x: '09', y: 2},
+                {x: '10', y: 2},
+              ]}
+            />
+          </VictoryGroup>
+          <VictoryAxis
+            gridComponent={<G />}
+            tickValues={hourlyData}
+            style={{
+              axis: {
+                stroke: isDarkMode ? '#FFFFFF' : '#405385',
+                strokeWidth: '0.75',
+              },
+              tickLabels: {
+                fill: isDarkMode ? '#9EA1AB' : '#999A9D',
+                fontSize: 12,
+                fontWeight: 400,
+              },
+            }}
+          />
+          <VictoryAxis
+            gridComponent={<G />}
+            tickValues={[1, 2, 4, 5]}
+            dependentAxis
+            style={{
+              axis: {
+                stroke: isDarkMode ? '#FFFFFF' : '#405385',
+                strokeWidth: '0.75',
+              },
+              tickLabels: {
+                fill: isDarkMode ? '#9EA1AB' : '#999A9D',
+                fontSize: 12,
+                fontWeight: 400,
+              },
+            }}
+          />
+        </VictoryChart>
+      </ScrollView>
     </View>
   );
 };
@@ -177,5 +289,10 @@ const style = StyleSheet.create({
   infoText: {
     fontWeight: 400,
     fontSize: 12,
+  },
+  containers: {
+    width: '100%',
+    marginTop: 10,
+    paddingLeft: 17,
   },
 });
