@@ -1,13 +1,24 @@
-import {ScrollView, StyleSheet, useColorScheme} from 'react-native';
+import {RefreshControl, ScrollView, StyleSheet, useColorScheme} from 'react-native';
 import {Content} from './src/screens';
 import {Header} from './src/screens/Header';
 import {BackdropProvider} from 'react-native-propel-kit';
 import SelectProduct from './src/screens/SelectProduct';
 import {Provider} from 'react-redux';
 import {store} from './src/store';
+import {useCallback, useState} from 'react';
 
 function App(): React.JSX.Element {
   const isDarkMode = useColorScheme() === 'dark';
+  const [refreshing, setRefreshing] = useState(false);
+
+  const onRefresh = useCallback(() => {
+    setRefreshing(true);
+    // Здесь выполните ваш код для обновления данных
+    // Например, обновление состояния Redux или запрос к API
+    setTimeout(() => {
+      setRefreshing(false);
+    }, 2000);
+  }, []);
 
   return (
     <Provider store={store}>
@@ -17,7 +28,10 @@ function App(): React.JSX.Element {
           style={[
             styles.sectionContainer,
             {backgroundColor: isDarkMode ? '#4D5473' : '#EEEFF3'},
-          ]}>
+          ]}
+          refreshControl={
+            <RefreshControl refreshing={refreshing} onRefresh={onRefresh} />
+          }>
           <SelectProduct />
           <Content />
         </ScrollView>
