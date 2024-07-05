@@ -1,13 +1,93 @@
-import {StyleSheet, useColorScheme, View} from 'react-native';
+import {StyleSheet, Text, useColorScheme, View} from 'react-native';
+import Checkbox from '../../components/Checkbox';
+import {useState} from 'react';
 
 export const Footer = () => {
   const isDarkMode = useColorScheme() === 'dark';
+
+  const [state, setState] = useState(false);
   return (
     <View
       style={[
         style.containerChecked,
         {backgroundColor: isDarkMode ? '#414451' : '#F4F7F9'},
-      ]}></View>
+      ]}>
+      <View style={style.containerInner}>
+        <Checkbox
+          borderColor="#569AE7"
+          backgroundColor="#88C0FF"
+          isBg={isDarkMode ? '#1A2A3D' : '#daeaff'}
+          isChecked={state}
+          onPress={() => setState(!state)}
+        />
+        <View style={{width: '80%', height: 3, backgroundColor: '#88C0FF'}} />
+        <Text
+          style={[
+            style.innerText,
+            {color: isDarkMode ? '#FFFFFF' : '#3D3F44'},
+          ]}>
+          план выручка
+        </Text>
+      </View>
+      <View style={style.containerInner}>
+        <Checkbox
+          borderColor="#1AC23F"
+          backgroundColor="#38EF60"
+          isBg={isDarkMode ? '#1A2A3D' : '#d8ffe0'}
+          isChecked={state}
+          onPress={() => setState(!state)}
+        />
+        <View style={{width: '80%', height: 3, backgroundColor: '#04D632'}} />
+        <Text
+          style={[
+            style.innerText,
+            {color: isDarkMode ? '#FFFFFF' : '#3D3F44'},
+          ]}>
+          план прибыль
+        </Text>
+      </View>
+      <View style={style.containerInner}>
+        <Checkbox
+          borderColor="#B777CD"
+          backgroundColor="#B777CD"
+          isBg={isDarkMode ? '#1A2A3D' : '#ECE0F0'}
+          isChecked={state}
+          onPress={() => setState(!state)}
+        />
+        <View style={{width: '80%', height: 3, backgroundColor: '#B777CD'}} />
+        <Text
+          style={[
+            style.innerText,
+            {color: isDarkMode ? '#FFFFFF' : '#3D3F44'},
+          ]}>
+          маржа
+        </Text>
+      </View>
+      <View style={style.containerInner}>
+        <Checkbox
+          borderColor="#008EBA"
+          backgroundColor="#06C0DA"
+          isBg={isDarkMode ? '#1A2A3D' : '#cffbfe'}
+          isChecked={state}
+          onPress={() => setState(!state)}
+        />
+        <View
+          style={{
+            width: '80%',
+            borderWidth: 2,
+            borderStyle: 'dotted',
+            borderColor: '#03ABC2',
+          }}
+        />
+        <Text
+          style={[
+            style.innerText,
+            {color: isDarkMode ? '#FFFFFF' : '#3D3F44'},
+          ]}>
+          рентабель-ность
+        </Text>
+      </View>
+    </View>
   );
 };
 
@@ -17,5 +97,23 @@ const style = StyleSheet.create({
     height: 100,
     marginVertical: 20,
     borderRadius: 8,
+    display: 'flex',
+    flexDirection: 'row',
+    gap: 10,
+    alignItems: 'center',
+    justifyContent: 'space-around',
+  },
+  containerInner: {
+    width: 60,
+    height: 65,
+    display: 'flex',
+    flexDirection: 'column',
+    alignItems: 'center',
+    gap: 10,
+  },
+  innerText: {
+    fontWeight: 300,
+    fontSize: 12,
+    textAlign: 'center',
   },
 });
