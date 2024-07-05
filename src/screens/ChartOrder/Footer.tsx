@@ -14,60 +14,9 @@ export const Footer = () => {
       ]}>
       <View style={style.containerInner}>
         <Checkbox
-          borderColor="#569AE7"
-          backgroundColor="#88C0FF"
-          isBg={isDarkMode ? '#1A2A3D' : '#daeaff'}
-          isChecked={state}
-          onPress={() => setState(!state)}
-        />
-        <View style={{width: '80%', height: 3, backgroundColor: '#88C0FF'}} />
-        <Text
-          style={[
-            style.innerText,
-            {color: isDarkMode ? '#FFFFFF' : '#3D3F44'},
-          ]}>
-          план выручка
-        </Text>
-      </View>
-      <View style={style.containerInner}>
-        <Checkbox
-          borderColor="#1AC23F"
-          backgroundColor="#38EF60"
-          isBg={isDarkMode ? '#1A2A3D' : '#d8ffe0'}
-          isChecked={state}
-          onPress={() => setState(!state)}
-        />
-        <View style={{width: '80%', height: 3, backgroundColor: '#04D632'}} />
-        <Text
-          style={[
-            style.innerText,
-            {color: isDarkMode ? '#FFFFFF' : '#3D3F44'},
-          ]}>
-          план прибыль
-        </Text>
-      </View>
-      <View style={style.containerInner}>
-        <Checkbox
-          borderColor="#B777CD"
+          borderColor="#9959AF"
           backgroundColor="#B777CD"
-          isBg={isDarkMode ? '#1A2A3D' : '#ECE0F0'}
-          isChecked={state}
-          onPress={() => setState(!state)}
-        />
-        <View style={{width: '80%', height: 3, backgroundColor: '#B777CD'}} />
-        <Text
-          style={[
-            style.innerText,
-            {color: isDarkMode ? '#FFFFFF' : '#3D3F44'},
-          ]}>
-          маржа
-        </Text>
-      </View>
-      <View style={style.containerInner}>
-        <Checkbox
-          borderColor="#008EBA"
-          backgroundColor="#06C0DA"
-          isBg={isDarkMode ? '#1A2A3D' : '#cffbfe'}
+          isBg={isDarkMode ? '#1A2A3D' : '#f6eef9'}
           isChecked={state}
           onPress={() => setState(!state)}
         />
@@ -76,7 +25,7 @@ export const Footer = () => {
             width: '80%',
             borderWidth: 2,
             borderStyle: 'dotted',
-            borderColor: '#03ABC2',
+            borderColor: '#B777CD',
           }}
         />
         <Text
@@ -84,7 +33,65 @@ export const Footer = () => {
             style.innerText,
             {color: isDarkMode ? '#FFFFFF' : '#3D3F44'},
           ]}>
-          рентабельность
+          CTR
+        </Text>
+      </View>
+      <View style={style.containerInner}>
+        <Checkbox
+          borderColor="#32C000"
+          backgroundColor="#3BDF02"
+          isBg={isDarkMode ? '#1A2A3D' : '#d8ffe0'}
+          isChecked={state}
+          onPress={() => setState(!state)}
+        />
+        <View
+          style={{
+            width: '80%',
+            borderWidth: 2,
+            borderStyle: 'dotted',
+            borderColor: '#3BDF02',
+          }}
+        />
+        <Text
+          style={[
+            style.innerText,
+            {color: isDarkMode ? '#FFFFFF' : '#3D3F44'},
+          ]}>
+          CPC
+        </Text>
+      </View>
+      <View style={style.containerInner}>
+        <Checkbox
+          borderColor="#0469C7"
+          backgroundColor="#2093FD"
+          isBg={isDarkMode ? '#1A2A3D' : '#d8f2ff'}
+          isChecked={state}
+          onPress={() => setState(!state)}
+        />
+        <View style={{width: '80%', height: 3, backgroundColor: '#0181F8'}} />
+        <Text
+          style={[
+            style.innerText,
+            {color: isDarkMode ? '#FFFFFF' : '#3D3F44'},
+          ]}>
+          расходы на рекламу
+        </Text>
+      </View>
+      <View style={style.containerInner}>
+        <Checkbox
+          borderColor="#AC6A08"
+          backgroundColor="#FF9C07"
+          isBg={isDarkMode ? '#1A2A3D' : '#fff2c5'}
+          isChecked={state}
+          onPress={() => setState(!state)}
+        />
+        <View style={{width: '80%', height: 3, backgroundColor: '#FF9C07'}} />
+        <Text
+          style={[
+            style.innerText,
+            {color: isDarkMode ? '#FFFFFF' : '#3D3F44'},
+          ]}>
+          оборачиваемость
         </Text>
       </View>
     </View>
@@ -115,5 +122,6 @@ const style = StyleSheet.create({
     fontWeight: 300,
     fontSize: 12,
     textAlign: 'center',
+    lineHeight: 12,
   },
 });
