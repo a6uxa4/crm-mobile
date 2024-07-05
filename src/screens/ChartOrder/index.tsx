@@ -1,5 +1,6 @@
 import React from 'react';
 import {StyleSheet, useColorScheme, View} from 'react-native';
+import {HeadTitle} from './HeadTitle';
 
 export const ChartOrder = () => {
   const isDarkMode = useColorScheme() === 'dark';
@@ -8,7 +9,9 @@ export const ChartOrder = () => {
       style={[
         style.container,
         {backgroundColor: isDarkMode ? '#1A2A3D' : '#FFFFFF'},
-      ]}></View>
+      ]}>
+      <HeadTitle />
+    </View>
   );
 };
 

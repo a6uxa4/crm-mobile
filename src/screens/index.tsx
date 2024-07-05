@@ -20,7 +20,7 @@ export const Content = () => {
       <Expenses />
       <Analize />
       <ChartProfit />
-      {/* <ChartOrder /> */}
+      <ChartOrder />
     </View>
   );
 };
