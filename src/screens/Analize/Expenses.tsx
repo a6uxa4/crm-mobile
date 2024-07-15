@@ -17,7 +17,7 @@ export const Expenses = () => {
           <Text
             style={{
               marginLeft: 35,
-              fontWeight: 500,
+              fontWeight: '500',
               fontSize: 15,
               color: isDarkMode ? '#FFFFFF' : '#161616',
             }}>
@@ -59,7 +59,7 @@ export const Expenses = () => {
                       textAlign: 'right',
                       width: 50,
                       fontSize: 14,
-                      fontWeight: 400,
+                      fontWeight: '400',
                     }}>
                     {item.percentage}
                   </Text>

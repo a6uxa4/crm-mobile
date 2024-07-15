@@ -114,7 +114,7 @@ export const Expenses = () => {
         <Text
           style={{
             color: '#848FA0',
-            fontWeight: 400,
+            fontWeight: '400',
             fontSize: 14,
             marginTop: 5,
           }}>
@@ -123,7 +123,7 @@ export const Expenses = () => {
         <Text
           style={{
             color: isDarkMode ? '#FFFFFF' : '#3D3F44',
-            fontWeight: 600,
+            fontWeight: '600',
             fontSize: 16,
             marginTop: 3,
           }}>
@@ -222,12 +222,12 @@ const styles = StyleSheet.create({
   },
   boxText: {
     color: '#848FA0',
-    fontWeight: 400,
+    fontWeight: '400',
     fontSize: 14,
   },
   innerText: {
     fontSize: 16,
-    fontWeight: 600,
+    fontWeight: '600',
   },
   containerLeft: {
     width: '48%',

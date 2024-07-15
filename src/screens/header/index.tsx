@@ -36,7 +36,7 @@ export const Header = () => {
             style={{
               fontSize: 18,
               color: isDarkMode ? '#1A2A3D' : '#FFFFFF',
-              fontWeight: 600,
+              fontWeight: '600',
             }}>
             IMPulse
           </Text>

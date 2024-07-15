@@ -109,10 +109,10 @@ const styles = StyleSheet.create({
   },
   text: {
     fontSize: 14,
-    fontWeight: 400,
+    fontWeight: '400',
   },
   percentage: {
     fontSize: 22,
-    fontWeight: 600,
+    fontWeight: '600',
   },
 });

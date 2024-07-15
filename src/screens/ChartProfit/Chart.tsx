@@ -166,7 +166,7 @@ export const Chart = () => {
             tickLabels: {
               fill: isDarkMode ? '#9EA1AB' : '#999A9D',
               fontSize: 12,
-              fontWeight: 400,
+              fontWeight: '400',
             },
           }}
         />
@@ -184,7 +184,7 @@ export const Chart = () => {
             tickLabels: {
               fill: isDarkMode ? '#9EA1AB' : '#999A9D',
               fontSize: 12,
-              fontWeight: 400,
+              fontWeight: '400',
             },
           }}
         />
