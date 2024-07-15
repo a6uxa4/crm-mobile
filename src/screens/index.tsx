@@ -5,8 +5,20 @@ import {Expenses} from './Expenses';
 import {Analize} from './Analize';
 import {ChartProfit} from './ChartProfit';
 import {ChartOrder} from './ChartOrder';
+import {ISalesData} from '../common';
 
-export const Content = () => {
+interface FilterType {
+  productId: string;
+  selectType: string;
+}
+
+interface IProps {
+  setFilter: (filter: Partial<FilterType>) => void;
+  filter: FilterType;
+  data: ISalesData;
+}
+
+export const Content = ({setFilter, filter, data}: IProps) => {
   return (
     <View
       style={{
@@ -15,8 +27,8 @@ export const Content = () => {
         alignItems: 'center',
         marginBottom: 50,
       }}>
-      <Navbar />
-      <Revenues />
+      <Navbar setFilter={setFilter} filter={filter} />
+      <Revenues data={data} />
       <Expenses />
       <Analize />
       <ChartProfit />

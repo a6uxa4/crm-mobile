@@ -53,3 +53,13 @@ export interface ISalesData {
   allExpenditure: number;
   advertisementDto: IAdvertisementDto;
 }
+
+export interface IProduct {
+  id: number;
+  nmId: string;
+  currencyIsoCode: string;
+  vendorCode: string;
+  price: number;
+  discount: number;
+  discountPrice: number;
+}

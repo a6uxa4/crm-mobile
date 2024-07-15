@@ -1,19 +1,15 @@
 import {StyleSheet, Text, useColorScheme, View} from 'react-native';
-import {useGetSalesQuery} from '../../services/base.service';
+
 import {Progress} from '../../components/Progress';
 import {Chip} from '../../components/Chip';
+import {ISalesData} from '../../common';
 
-export const Revenues = () => {
+interface IProps {
+  data: ISalesData;
+}
+
+export const Revenues = ({data}: IProps) => {
   const isDarkMode = useColorScheme() === 'dark';
-
-  const {data, isLoading, isError, error, refetch} = useGetSalesQuery({
-    day: false,
-    week: false,
-    month: false,
-    year: true,
-    byDays: true,
-    byWeeks: false,
-  });
 
   return (
     <View style={styles.revenuesContainer}>

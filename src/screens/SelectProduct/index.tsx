@@ -1,8 +1,21 @@
 import {StyleSheet, useColorScheme, View, Platform, Text} from 'react-native';
 import {Select} from 'react-native-propel-kit';
+import {useGetProductsQuery} from '../../services/base.service';
+import {transformToOptions} from '../../utils/helpers';
 
-const SelectProduct = () => {
+interface FilterType {
+  productId?: string;
+}
+
+interface IProps {
+  setFilter: (filter: Partial<FilterType>) => void;
+  filter: FilterType;
+}
+
+const SelectProduct = ({setFilter, filter}: IProps) => {
   const isDarkMode = useColorScheme() === 'dark';
+
+  const {data = []} = useGetProductsQuery();
 
   return (
     <View style={styles.container}>
@@ -22,6 +35,8 @@ const SelectProduct = () => {
         initialValue="1"
         confirmTitle="Подтвердить"
         cancelTitle="Отмена"
+        onChange={e => setFilter({productId: e})}
+        value={filter.productId}
         style={[
           styles.select,
           {
@@ -31,11 +46,9 @@ const SelectProduct = () => {
           },
         ]}
         placeholder="Все товары">
-        <Select.Item label="Все товары" value="1" />
-        <Select.Item label="ИП Константинов П.В." value="2" />
-        <Select.Item label="ИП Степанова С.М." value="3" />
-        <Select.Item label="ИП Рахимова Л.Н." value="4" />
-        <Select.Item label="ИП Александров В.В." value="5" />
+        {transformToOptions(data).map((option, index) => (
+          <Select.Item key={index} label={option.label} value={option.value} />
+        ))}
       </Select>
     </View>
   );

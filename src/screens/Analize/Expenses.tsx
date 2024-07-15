@@ -1,9 +1,9 @@
 import {Text, View, StyleSheet, useColorScheme} from 'react-native';
-import {useGetAllExpenseQuery} from '../../services/base.service';
+// import {useGetAllExpenseQuery} from '../../services/base.service';
 
 export const Expenses = () => {
   const isDarkMode = useColorScheme() === 'dark';
-  const {data} = useGetAllExpenseQuery();
+  const data = null;
 
   return (
     <View style={style.wrapper}>

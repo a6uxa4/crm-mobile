@@ -1,6 +1,6 @@
 import {createApi} from '@reduxjs/toolkit/query/react';
 import {baseQueryWithReauth} from '../store/interceptor';
-import {IParams, ISalesData} from '../common';
+import {IParams, IProduct, ISalesData} from '../common';
 
 export const baseApi = createApi({
   reducerPath: 'baseApi',
@@ -12,25 +12,12 @@ export const baseApi = createApi({
         params,
       }),
     }),
-    getAllExpense: build.query<any, void>({
-      query: () => 'all/expenses',
-    }),
-    getReports: build.query<any, void>({
-      query: () => 'order/get-report',
-    }),
-    getAbcAnalyze: build.query<any, void>({
-      query: () => 'warehouse-product/abc',
-    }),
-    getRemainQuantity: build.query<any, any>({
-      query: (productId) => `warehouse-product/remain-quantity?productId=${productId}`,
+    getProducts: build.query<IProduct[], void>({
+      query: () => ({
+        url: `/products`,
+      }),
     }),
   }),
 });
 
-export const {
-  useGetSalesQuery,
-  useGetAllExpenseQuery,
-  useGetReportsQuery,
-  useGetAbcAnalyzeQuery,
-  useGetRemainQuantityQuery
-} = baseApi;
+export const {useGetSalesQuery, useGetProductsQuery} = baseApi;

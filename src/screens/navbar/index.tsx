@@ -8,7 +8,17 @@ import {
   useColorScheme,
 } from 'react-native';
 
-export const Navbar = () => {
+interface FilterType {
+  productId: string;
+  selectType: string;
+}
+
+interface IProps {
+  setFilter: (filter: Partial<FilterType>) => void;
+  filter: FilterType;
+}
+
+export const Navbar = ({setFilter, filter}: IProps) => {
   const isDarkMode = useColorScheme() === 'dark';
 
   const [activeTab, setActiveTab] = useState(0);
@@ -24,6 +34,7 @@ export const Navbar = () => {
 
   const handleTabPress = (index: number) => {
     setActiveTab(index);
+    setFilter({selectType: String(index)});
     const tabWidth = containerWidth / tabs.length;
     Animated.spring(translateX, {
       toValue: index * tabWidth,
