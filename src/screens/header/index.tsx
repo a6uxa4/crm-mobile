@@ -1,9 +1,18 @@
-import {StyleSheet, Text, useColorScheme, View} from 'react-native';
+import {
+  StyleSheet,
+  Text,
+  TouchableOpacity,
+  useColorScheme,
+  View,
+} from 'react-native';
 import UserIcon from '../../assets/icons/UserIcon';
 import MenuIcon from '../../assets/icons/MenuIcon';
+import {useActions} from '../../hooks/useActions';
 
 export const Header = () => {
   const isDarkMode = useColorScheme() === 'dark';
+
+  const {logout} = useActions();
 
   return (
     <View
@@ -33,7 +42,9 @@ export const Header = () => {
           </Text>
         </View>
         <View style={styles.headerRight}>
-          <MenuIcon />
+          <TouchableOpacity onPress={() => logout()}>
+            <MenuIcon />
+          </TouchableOpacity>
           <UserIcon />
         </View>
       </View>

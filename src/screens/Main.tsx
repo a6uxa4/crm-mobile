@@ -1,4 +1,4 @@
-import React, {useCallback, useState} from 'react';
+import React, {useCallback, useEffect, useState} from 'react';
 import {Header} from './Header';
 import {
   RefreshControl,
@@ -10,9 +10,30 @@ import SelectProduct from './SelectProduct';
 import {Content} from '.';
 import useFilter from '../hooks/useFilter';
 import {useGetSalesQuery} from '../services/base.service';
+import {useAuth} from '../hooks/useAuth';
+import {useActions} from '../hooks/useActions';
+import {useDispatch} from 'react-redux';
+import {getUserFromStorage} from '../utils/helpers';
+import {AuthPage} from './auth';
 
 export const Main = () => {
   const isDarkMode = useColorScheme() === 'dark';
+
+  const IsAuthentication = useAuth();
+  const {saveUser} = useActions();
+
+  const dispatch = useDispatch();
+
+  useEffect(() => {
+    const fetchUser = async () => {
+      const user = await getUserFromStorage();
+      if (user) {
+        dispatch(saveUser(user));
+      }
+    };
+
+    fetchUser();
+  }, [dispatch]);
 
   const [refreshing, setRefreshing] = useState(false);
 
@@ -36,22 +57,26 @@ export const Main = () => {
     });
   }, [refetch]);
 
-  return (
-    <>
-      <Header />
-      <ScrollView
-        style={[
-          styles.sectionContainer,
-          {backgroundColor: isDarkMode ? '#4D5473' : '#EEEFF3'},
-        ]}
-        refreshControl={
-          <RefreshControl refreshing={refreshing} onRefresh={onRefresh} />
-        }>
-        <SelectProduct setFilter={setFilter} filter={filter} />
-        <Content setFilter={setFilter} filter={filter} data={data} />
-      </ScrollView>
-    </>
-  );
+  if (!IsAuthentication) {
+    return <AuthPage />;
+  } else {
+    return (
+      <>
+        <Header />
+        <ScrollView
+          style={[
+            styles.sectionContainer,
+            {backgroundColor: isDarkMode ? '#4D5473' : '#EEEFF3'},
+          ]}
+          refreshControl={
+            <RefreshControl refreshing={refreshing} onRefresh={onRefresh} />
+          }>
+          <SelectProduct setFilter={setFilter} filter={filter} />
+          <Content setFilter={setFilter} filter={filter} data={data} />
+        </ScrollView>
+      </>
+    );
+  }
 };
 
 const styles = StyleSheet.create({

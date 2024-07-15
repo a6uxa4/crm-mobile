@@ -4,17 +4,15 @@ import {
   FetchBaseQueryError,
   fetchBaseQuery,
 } from '@reduxjs/toolkit/query';
+import {RootState} from '..';
 
 export const baseQuery = fetchBaseQuery({
   baseUrl: 'https://dev-back.impulsefinance.ru',
   prepareHeaders(headers, api) {
-    // const token = (api.getState() as RootState).auth.user?.accessToken;
-    // if (token) {
-    headers.set(
-      'authorization',
-      `Bearer eyJhbGciOiJIUzI1NiJ9.eyJqdGkiOiIxIiwiaWF0IjoxNzIwNjMzNTMzLCJleHAiOjM2MDE3MjA2MzM1MzMsInN1YiI6ImxhcGlrb3ZhQGdtYWlsLmNvbSJ9.orU-letQI4uJLjho798pximtOAX6dLrb5mSKXFGu4qw`,
-    );
-    // }
+    const token = (api.getState() as RootState).auth.user?.accessToken;
+    if (token) {
+      headers.set('authorization', `${token}`);
+    }
     return headers;
   },
 });
