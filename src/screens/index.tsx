@@ -31,7 +31,7 @@ export const Content = ({setFilter, filter, data}: IProps) => {
       <Revenues data={data} />
       <Expenses />
       <Analize />
-      <ChartProfit />
+      <ChartProfit data={data} />
       <ChartOrder />
     </View>
   );

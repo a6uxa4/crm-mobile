@@ -12,8 +12,13 @@ import {
 import {HeadTitle} from './HeadTitle';
 import {Chart} from './Chart';
 import {Footer} from './Footer';
+import {ISalesData} from '../../common';
 
-export const ChartProfit = () => {
+interface IProps {
+  data: ISalesData;
+}
+
+export const ChartProfit = ({data}: IProps) => {
   const isDarkMode = useColorScheme() === 'dark';
 
   const [activeTab, setActiveTab] = useState(0);
