@@ -2,8 +2,10 @@ import {StyleSheet, Text, useColorScheme, View} from 'react-native';
 import {Chip} from '../../components/Chip';
 import {Gauge} from '../../components/Gauge';
 import {Badge} from '../../components/Badge';
+import {calculatePercentage, expensesCalc} from '../../utils/helpers';
+import { IOrdersData } from '../../common';
 
-export const Expenses = () => {
+export const Expenses = ({data, ordersData}: {data: any, ordersData: IOrdersData}) => {
   const isDarkMode = useColorScheme() === 'dark';
 
   return (
@@ -25,9 +27,22 @@ export const Expenses = () => {
               ]}>
               Расходы
             </Text>
-            <Chip backgroundColor="#2F2F2F4D" title="2,8%" isShort />
+            <Chip
+              backgroundColor="#2F2F2F4D"
+              title={
+                calculatePercentage({
+                  planSum: data?.expenses.allExpenses,
+                  allSum: data?.expenses.percentage,
+                  percentage: data?.revenue.percentage,
+                }).value
+              }
+              isShort={
+                calculatePercentage({percentage: data?.expenses.percentage})
+                  .isChip
+              }
+            />
           </View>
-          <Text style={styles.expensesSum}>79 980 ₽</Text>
+          <Text style={styles.expensesSum}>{data?.expenses.allExpenses} ₽</Text>
         </View>
         <View
           style={[
@@ -62,12 +77,19 @@ export const Expenses = () => {
                   fontSize: 18,
                   color: isDarkMode ? '#FFFFFF' : '#3D3F44',
                 }}>
-                15%
+                {data?.allProfitability.percentage}%
               </Text>
               <Chip
                 backgroundColor={isDarkMode ? '#FFFFFF26' : '#2F2F2F4D'}
-                title="3,5%"
-                isShort
+                title={`${data?.allProfitability.lastPercentage.replace(
+                  '-',
+                  '',
+                )}%`}
+                isShort={
+                  calculatePercentage({
+                    percentage: Number(data?.allProfitability.lastPercentage),
+                  }).isChip
+                }
               />
             </View>
           </View>
@@ -94,12 +116,19 @@ export const Expenses = () => {
                   fontSize: 18,
                   color: isDarkMode ? '#FFFFFF' : '#3D3F44',
                 }}>
-                28%
+                {data?.allMarginality.percentage} %
               </Text>
               <Chip
                 backgroundColor={isDarkMode ? '#FFFFFF26' : '#2F2F2F4D'}
-                title="3,5%"
-                isShort
+                title={`${data?.allMarginality.lastPercentage.replace(
+                  '-',
+                  '',
+                )}%`}
+                isShort={
+                  calculatePercentage({
+                    percentage: Number(data?.allMarginality.lastPercentage),
+                  }).isChip
+                }
               />
             </View>
           </View>
@@ -110,11 +139,11 @@ export const Expenses = () => {
           styles.containerRight,
           {backgroundColor: isDarkMode ? '#1A2A3D' : '#FFFFFF'},
         ]}>
-        <Gauge />
+        <Gauge value={ordersData?.turnOver} />
         <Text
           style={{
             color: '#848FA0',
-            fontWeight: 400,
+            fontWeight: '400',
             fontSize: 14,
             marginTop: 5,
           }}>
@@ -123,11 +152,11 @@ export const Expenses = () => {
         <Text
           style={{
             color: isDarkMode ? '#FFFFFF' : '#3D3F44',
-            fontWeight: 600,
+            fontWeight: '600',
             fontSize: 16,
             marginTop: 3,
           }}>
-          59 дн
+          {ordersData?.turnOver} дн
         </Text>
         <View style={styles.containerBox}>
           <View style={styles.box}>
@@ -140,7 +169,7 @@ export const Expenses = () => {
                 styles.innerText,
                 {color: isDarkMode ? '#FFFFFF' : '#3D3F44'},
               ]}>
-              11,2%
+              {ordersData?.allCtr}%
             </Text>
           </View>
           <View style={styles.box}>
@@ -153,7 +182,7 @@ export const Expenses = () => {
                 styles.innerText,
                 {color: isDarkMode ? '#FFFFFF' : '#3D3F44'},
               ]}>
-              18,2%
+              {ordersData?.drr}%
             </Text>
           </View>
         </View>
@@ -168,7 +197,7 @@ export const Expenses = () => {
                 styles.innerText,
                 {color: isDarkMode ? '#FFFFFF' : '#3D3F44'},
               ]}>
-              48%
+              {ordersData?.ransoms}%
             </Text>
           </View>
           <View style={styles.box}>
@@ -181,7 +210,7 @@ export const Expenses = () => {
                 styles.innerText,
                 {color: isDarkMode ? '#FFFFFF' : '#3D3F44'},
               ]}>
-              125 ₽
+              {ordersData?.allCpc} ₽
             </Text>
           </View>
         </View>
@@ -222,12 +251,12 @@ const styles = StyleSheet.create({
   },
   boxText: {
     color: '#848FA0',
-    fontWeight: 400,
+    fontWeight: '400',
     fontSize: 14,
   },
   innerText: {
     fontSize: 16,
-    fontWeight: 600,
+    fontWeight: '600',
   },
   containerLeft: {
     width: '48%',

@@ -91,7 +91,7 @@ export function Analize() {
                   }}>
                   <Text
                     style={{
-                      fontWeight: 400,
+                      fontWeight: '400',
                       fontSize: 15,
                       color: isDarkMode
                         ? focused

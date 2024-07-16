@@ -76,7 +76,7 @@ const style = StyleSheet.create({
     marginTop: 25,
   },
   headerText: {
-    fontWeight: 500,
+    fontWeight: '500',
     fontSize: 20,
     textAlign: 'center',
   },
@@ -96,11 +96,11 @@ const style = StyleSheet.create({
     gap: 4,
   },
   infoText: {
-    fontWeight: 300,
+    fontWeight: '300',
     fontSize: 12,
   },
   infoSum: {
-    fontWeight: 600,
+    fontWeight: '600',
     fontSize: 15,
   },
 });

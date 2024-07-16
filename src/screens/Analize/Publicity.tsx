@@ -136,7 +136,7 @@ const style = StyleSheet.create({
     top: 27,
   },
   funnelInnerText: {
-    fontWeight: 400,
+    fontWeight: '400',
     fontSize: 14,
   },
   containerWrapper: {
@@ -152,11 +152,11 @@ const style = StyleSheet.create({
     gap: 7,
   },
   containerText: {
-    fontWeight: 300,
+    fontWeight: '300',
     fontSize: 14,
   },
   containerSum: {
-    fontWeight: 500,
+    fontWeight: '500',
     fontSize: 14,
     marginLeft: 20,
     marginTop: 2,

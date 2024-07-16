@@ -67,3 +67,29 @@ export interface IProduct {
   discount: number;
   discountPrice: number;
 }
+
+export interface IOrdersData {
+  allCpc: string
+  allCtr: string
+  allOrdersCount: number
+  allRansoms: number
+  allRejects: number
+  allReturns: number
+  drr: string
+  ransoms: string
+  turnOver: number
+  orderReportsDto: IOrderArray[]
+}
+
+export interface IOrderArray {
+  advertExpenses: number
+  cpc: string
+  ctr: string
+  date: string
+  hourOrDayOrWeek: string
+  ordersCount: number
+  ransoms: number
+  rejects: number
+  returns: number
+  turnOver: number
+}

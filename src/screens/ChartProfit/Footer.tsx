@@ -136,7 +136,7 @@ const style = StyleSheet.create({
     gap: 10,
   },
   innerText: {
-    fontWeight: 300,
+    fontWeight: '300',
     fontSize: 12,
     textAlign: 'center',
   },

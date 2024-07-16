@@ -1,6 +1,6 @@
 import {createApi} from '@reduxjs/toolkit/query/react';
 import {baseQueryWithReauth} from '../store/interceptor';
-import {IParams, IProduct, ISalesData} from '../common';
+import {IParams, IProduct, ISalesData, IOrdersData} from '../common';
 
 export const baseApi = createApi({
   reducerPath: 'baseApi',
@@ -17,7 +17,13 @@ export const baseApi = createApi({
         url: `/products`,
       }),
     }),
+    getOrdersData: build.query<IOrdersData, IParams>({
+      query: params => ({
+        url: `/order/get-report`,
+        params
+      })
+    }),
   }),
 });
 
-export const {useGetSalesQuery, useGetProductsQuery} = baseApi;
+export const {useGetSalesQuery, useGetProductsQuery, useGetOrdersDataQuery} = baseApi;

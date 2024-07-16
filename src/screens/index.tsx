@@ -1,11 +1,11 @@
 import {View} from 'react-native';
-import {Navbar} from './Navbar';
+import { Navbar } from './navbar';
 import {Revenues} from './Revenues';
 import {Expenses} from './Expenses';
 import {Analize} from './Analize';
 import {ChartProfit} from './ChartProfit';
 import {ChartOrder} from './ChartOrder';
-import {ISalesData} from '../common';
+import {ISalesData, IOrdersData} from '../common';
 
 interface FilterType {
   productId: string;
@@ -19,9 +19,10 @@ interface IProps {
   filter: FilterType;
   data: ISalesData;
   params: any;
+  ordersData: IOrdersData
 }
 
-export const Content = ({setFilter, filter, data, params}: IProps) => {
+export const Content = ({setFilter, filter, data, params, ordersData}: IProps) => {
   return (
     <View
       style={{
@@ -32,7 +33,7 @@ export const Content = ({setFilter, filter, data, params}: IProps) => {
       }}>
       <Navbar setFilter={setFilter} filter={filter} />
       <Revenues data={data} />
-      <Expenses />
+      <Expenses data={data} ordersData={ordersData} />
       <Analize />
       <ChartProfit data={data} filter={filter} params={params} />
       <ChartOrder />

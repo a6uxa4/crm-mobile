@@ -150,7 +150,7 @@ const style = StyleSheet.create({
     marginTop: 15,
   },
   ResidTitle: {
-    fontWeight: 400,
+    fontWeight: '400',
     fontSize: 15,
   },
   textWrapper: {
@@ -167,7 +167,7 @@ const style = StyleSheet.create({
     alignItems: 'center',
   },
   innerText: {
-    fontWeight: 400,
+    fontWeight: '400',
     fontSize: 12,
   },
   container: {
@@ -205,11 +205,11 @@ const style = StyleSheet.create({
     overflow: 'hidden',
   },
   barText: {
-    fontWeight: 500,
+    fontWeight: '500',
     fontSize: 14,
   },
   barTextRight: {
     fontSize: 14,
-    fontWeight: 700,
+    fontWeight: '700',
   },
 });
