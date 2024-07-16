@@ -6,7 +6,7 @@ import {
   isWithinInterval,
   isSameDay,
 } from 'date-fns';
-import { useState } from 'react';
+import {useState} from 'react';
 
 const typeMonth = [
   'Январь',
@@ -48,6 +48,9 @@ export const MiniCalendar = ({value, onChange}) => {
   const sufixDays = (6 - endOfDay.getDay() + 1) % 7;
 
   function handleDatePress(date) {
+    const today = new Date();
+    if (date > today) return;
+
     if (!startPeriod || (startPeriod && endPeriod)) {
       onChange({startPeriod: date, endPeriod: null});
     } else {
@@ -68,6 +71,11 @@ export const MiniCalendar = ({value, onChange}) => {
   }
 
   function isDayStyle(date) {
+    const today = new Date();
+    if (date > today) {
+      return styles.disabledDay;
+    }
+
     if (isSameDay(date, startPeriod) && isSameDay(date, endPeriod)) {
       return styles.singleDay;
     } else if (isSameDay(date, startPeriod)) {
@@ -78,6 +86,15 @@ export const MiniCalendar = ({value, onChange}) => {
       return styles.rangeDay;
     }
     return styles.dayButton;
+  }
+
+  function isDayTextStyle(date) {
+    if (isSameDay(date, startPeriod) || isSameDay(date, endPeriod)) {
+      return styles.selectedDayText;
+    } else if (isInRange(date)) {
+      return styles.rangeDayText;
+    }
+    return styles.dayText;
   }
 
   return (
@@ -119,16 +136,9 @@ export const MiniCalendar = ({value, onChange}) => {
               <TouchableOpacity
                 key={day}
                 style={[styles.dayButton, isDayStyle(date)]}
-                onPress={() => handleDatePress(date)}>
-                <Text
-                  style={[
-                    styles.dayText,
-                    (isSameDay(date, startPeriod) ||
-                      isSameDay(date, endPeriod)) &&
-                      styles.selectedDayText,
-                  ]}>
-                  {day}
-                </Text>
+                onPress={() => handleDatePress(date)}
+                disabled={date > new Date()}>
+                <Text style={[isDayTextStyle(date)]}>{day}</Text>
               </TouchableOpacity>
             );
           })}
@@ -235,6 +245,12 @@ const styles = StyleSheet.create({
     fontWeight: '600',
   },
   rangeDay: {
-    backgroundColor: '#93C5FD',
+    backgroundColor: '#3B82F6',
+  },
+  rangeDayText: {
+    color: 'white',
+  },
+  disabledDay: {
+    backgroundColor: '#eeeef2',
   },
 });
