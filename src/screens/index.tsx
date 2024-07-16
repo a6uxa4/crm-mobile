@@ -10,16 +10,19 @@ import {ISalesData, IOrdersData} from '../common';
 interface FilterType {
   productId: string;
   selectType: string;
+  startPeriod: string;
+  endPeriod: string;
 }
 
 interface IProps {
   setFilter: (filter: Partial<FilterType>) => void;
   filter: FilterType;
   data: ISalesData;
+  params: any;
   ordersData: IOrdersData
 }
 
-export const Content = ({setFilter, filter, data, ordersData}: IProps) => {
+export const Content = ({setFilter, filter, data, params, ordersData}: IProps) => {
   return (
     <View
       style={{
@@ -32,8 +35,8 @@ export const Content = ({setFilter, filter, data, ordersData}: IProps) => {
       <Revenues data={data} />
       <Expenses data={data} ordersData={ordersData} />
       <Analize />
-      {/* <ChartProfit data={data} />
-      <ChartOrder /> */}
+      <ChartProfit data={data} filter={filter} params={params} />
+      <ChartOrder />
     </View>
   );
 };

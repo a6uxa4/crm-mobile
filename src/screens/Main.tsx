@@ -83,6 +83,7 @@ export const Main = () => {
             filter={filter}
             data={data}
             ordersData={ordersData}
+            params={params}
           />
         </ScrollView>
       </>
