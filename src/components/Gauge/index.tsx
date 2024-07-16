@@ -4,7 +4,7 @@ interface GaugeProps {
   value?: number;
 }
 
-export const Gauge: React.FC<GaugeProps> = ({value = 40}) => {
+export const Gauge: React.FC<GaugeProps> = ({value = 0}) => {
   const center = 70 / 2;
   const radius = (70 - 7) / 2;
   const needleHeight = 50 - 15;

@@ -1,5 +1,5 @@
 import React, {useCallback, useEffect, useState} from 'react';
-import { Header } from './header';
+import {Header} from './header';
 import {
   RefreshControl,
   ScrollView,
@@ -9,7 +9,10 @@ import {
 import SelectProduct from './SelectProduct';
 import {Content} from '.';
 import useFilter from '../hooks/useFilter';
-import {useGetSalesQuery} from '../services/base.service';
+import {
+  useGetSalesQuery,
+  useGetOrdersDataQuery,
+} from '../services/base.service';
 import {useAuth} from '../hooks/useAuth';
 import {useActions} from '../hooks/useActions';
 import {useDispatch} from 'react-redux';
@@ -48,6 +51,9 @@ export const Main = () => {
 
   const {data, refetch} = useGetSalesQuery(params);
 
+  const {data: ordersData, refetch: ordersRefetch} =
+    useGetOrdersDataQuery(params);
+
   const onRefresh = useCallback(() => {
     setRefreshing(true);
     refetch().then(() => {
@@ -55,7 +61,7 @@ export const Main = () => {
         setRefreshing(false);
       }, 1000);
     });
-  }, [refetch]);
+  }, [refetch, ordersRefetch]);
 
   if (!IsAuthentication) {
     return <AuthPage />;
@@ -72,7 +78,12 @@ export const Main = () => {
             <RefreshControl refreshing={refreshing} onRefresh={onRefresh} />
           }>
           <SelectProduct setFilter={setFilter} filter={filter} />
-          <Content setFilter={setFilter} filter={filter} data={data} />
+          <Content
+            setFilter={setFilter}
+            filter={filter}
+            data={data}
+            ordersData={ordersData}
+          />
         </ScrollView>
       </>
     );

@@ -3,6 +3,11 @@ import {StyleSheet, Text, useColorScheme, View} from 'react-native';
 import {Progress} from '../../components/Progress';
 import {Chip} from '../../components/Chip';
 import {ISalesData} from '../../common';
+import {
+  addPlusMinus,
+  calculatePercentage,
+  calculateProgress,
+} from '../../utils/helpers';
 
 interface IProps {
   data: ISalesData;
@@ -31,21 +36,33 @@ export const Revenues = ({data}: IProps) => {
           </Text>
           <Chip
             backgroundColor={isDarkMode ? '#0F72BA' : '#2F2F2F4D'}
-            title="2,8%"
-            isShort
+            title={
+              calculatePercentage({
+                planSum: data?.revenue?.planSum,
+                allSum: data?.revenue?.allSum,
+                percentage: data?.revenue?.percentage,
+              }).value
+            }
+            isShort={
+              calculatePercentage({percentage: data?.revenue?.percentage})
+                .isChip
+            }
           />
         </View>
-        <Text style={styles.revenuesSum}>79 980 ₽</Text>
+        <Text style={styles.revenuesSum}>{data?.revenue?.allSum} ₽</Text>
         <View style={styles.innerContainer}>
           <Text
             style={[
               styles.innerTitle,
               {textAlign: 'right', color: '#3D3F44B2'},
             ]}>
-            +1980
+            {addPlusMinus(data?.revenue?.allSum - data?.revenue?.planSum)}
           </Text>
           <Progress
-            progress={30}
+            progress={calculateProgress(
+              data?.revenue.planSum,
+              data?.revenue?.allSum,
+            )}
             backgroundColor={isDarkMode ? '#0F72BA' : '#608CAC'}
             borderColor={isDarkMode ? '#43B0FF' : '#C5E6FF'}
           />
@@ -54,7 +71,7 @@ export const Revenues = ({data}: IProps) => {
               styles.innerTitle,
               {textAlign: 'center', color: '#3D3F44B2'},
             ]}>
-            план 78000
+            план {data?.revenue?.planSum}
           </Text>
         </View>
       </View>
@@ -73,21 +90,32 @@ export const Revenues = ({data}: IProps) => {
           </Text>
           <Chip
             backgroundColor={isDarkMode ? '#119d21' : '#2F2F2F4D'}
-            title="3,5%"
-            isShort={false}
+            title={
+              calculatePercentage({
+                planSum: data?.profit?.planSum,
+                allSum: data?.profit?.allSum,
+                percentage: data?.profit?.percentage,
+              }).value
+            }
+            isShort={
+              calculatePercentage({percentage: data?.profit?.percentage}).isChip
+            }
           />
         </View>
-        <Text style={styles.revenuesSum}>12 800 ₽</Text>
+        <Text style={styles.revenuesSum}>{data?.profit?.allSum} ₽</Text>
         <View style={styles.innerContainer}>
           <Text
             style={[
               styles.innerTitle,
               {textAlign: 'right', color: '#3D3F44B2'},
             ]}>
-            +1980
+            {addPlusMinus(data?.profit?.allSum - data?.profit?.planSum)}
           </Text>
           <Progress
-            progress={30}
+            progress={calculateProgress(
+              data?.profit.planSum,
+              data?.profit.allSum,
+            )}
             backgroundColor={isDarkMode ? '#119d21' : '#2F2F2F4D'}
             borderColor={isDarkMode ? '#2CEB3E' : '#B5FEBC'}
           />
@@ -96,7 +124,7 @@ export const Revenues = ({data}: IProps) => {
               styles.innerTitle,
               {textAlign: 'center', color: '#3D3F44B2'},
             ]}>
-            план 78000
+            план {data?.profit?.planSum}
           </Text>
         </View>
       </View>
