@@ -12,6 +12,8 @@ export interface ISaleProduct {
   revenue: number;
   profit: number;
   expenses: number;
+  loss: number;
+  profitability: number;
   date?: string | null;
 }
 
@@ -23,6 +25,7 @@ export interface IFinancialPlan {
 
 export interface IRevenue extends IFinancialPlan {}
 export interface IProfit extends IFinancialPlan {}
+export interface ILoss extends IFinancialPlan {}
 
 export interface IExpenses {
   allExpenses: number;
@@ -47,6 +50,7 @@ export interface ISalesData {
   revenue: IRevenue;
   profit: IProfit;
   expenses: IExpenses;
+  loss: ILoss;
   salesReportsDto: ISaleProduct[];
   allMarginality: number;
   allProfitability: number;

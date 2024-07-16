@@ -14,16 +14,31 @@ import {Chart} from './Chart';
 import {Footer} from './Footer';
 import {ISalesData} from '../../common';
 
-interface IProps {
-  data: ISalesData;
+interface FilterType {
+  productId: string;
+  selectType: string;
+  startPeriod: string;
+  endPeriod: string;
 }
 
-export const ChartProfit = ({data}: IProps) => {
+interface IProps {
+  data: ISalesData;
+  filter: FilterType;
+  params: any;
+}
+
+export const ChartProfit = ({data, filter, params}: IProps) => {
   const isDarkMode = useColorScheme() === 'dark';
 
   const [activeTab, setActiveTab] = useState(0);
   const [translateX] = useState(new Animated.Value(0));
   const [containerWidth, setContainerWidth] = useState(0);
+  const [lineVisible, setLineVisible] = useState({
+    isRevenue: false,
+    isProfit: false,
+    isProfitability: false,
+    isMargin: false,
+  });
 
   const tabs = ['по часам', 'по дням'];
 
@@ -97,8 +112,13 @@ export const ChartProfit = ({data}: IProps) => {
         ))}
       </View>
       <HeadTitle />
-      <Chart />
-      <Footer />
+      <Chart
+        data={data}
+        filter={filter}
+        params={params}
+        lineVisible={lineVisible}
+      />
+      <Footer lineVisible={lineVisible} setLineVisible={setLineVisible} />
     </View>
   );
 };

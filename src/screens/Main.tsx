@@ -72,7 +72,12 @@ export const Main = () => {
             <RefreshControl refreshing={refreshing} onRefresh={onRefresh} />
           }>
           <SelectProduct setFilter={setFilter} filter={filter} />
-          <Content setFilter={setFilter} filter={filter} data={data} />
+          <Content
+            setFilter={setFilter}
+            filter={filter}
+            data={data}
+            params={params}
+          />
         </ScrollView>
       </>
     );
