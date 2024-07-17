@@ -1,5 +1,5 @@
 import {View} from 'react-native';
-import { Navbar } from './navbar';
+import {Navbar} from './navbar';
 import {Revenues} from './Revenues';
 import {Expenses} from './Expenses';
 import {Analize} from './Analize';
@@ -19,10 +19,24 @@ interface IProps {
   filter: FilterType;
   data: ISalesData;
   params: any;
-  ordersData: IOrdersData
+  ordersData: IOrdersData;
+  expenditureData: any;
+  abcData: any;
+  remainData: any;
+  voronkaData: any;
 }
 
-export const Content = ({setFilter, filter, data, params, ordersData}: IProps) => {
+export const Content = ({
+  setFilter,
+  filter,
+  data,
+  params,
+  ordersData,
+  expenditureData,
+  abcData,
+  remainData,
+  voronkaData,
+}: IProps) => {
   return (
     <View
       style={{
@@ -34,7 +48,15 @@ export const Content = ({setFilter, filter, data, params, ordersData}: IProps) =
       <Navbar setFilter={setFilter} filter={filter} />
       <Revenues data={data} />
       <Expenses data={data} ordersData={ordersData} />
-      <Analize />
+      <Analize
+        voronkaData={voronkaData}
+        expenditureData={expenditureData}
+        abcData={abcData}
+        remainData={remainData}
+        filter={filter}
+        ordersData={ordersData}
+        data={data}
+      />
       <ChartProfit data={data} filter={filter} params={params} />
       <ChartOrder />
     </View>

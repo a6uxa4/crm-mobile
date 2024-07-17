@@ -238,7 +238,7 @@ const styles = StyleSheet.create({
     paddingHorizontal: 20,
   },
   box: {
-    width: 50,
+    width: 55,
     height: 40,
     display: 'flex',
     gap: 5,

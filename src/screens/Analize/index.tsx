@@ -1,4 +1,4 @@
-import {useState} from 'react';
+import {useEffect, useState} from 'react';
 import {View, Text, StyleSheet, useColorScheme} from 'react-native';
 import {TabView, SceneMap, TabBar} from 'react-native-tab-view';
 import {Residuals} from './Residuals';
@@ -6,47 +6,77 @@ import {ABCAnalize} from './ABCAnalize';
 import {Expenses} from './Expenses';
 import {Publicity} from './Publicity';
 
-const RemainsTab = () => (
+const RemainsTab = ({data, filter}) => (
   <View style={styles.containerInner}>
-    <Residuals />
+    <Residuals datas={data} filter={filter} />
   </View>
 );
 
-const ABCAnalysisTab = () => (
+const ABCAnalysisTab = ({data}) => (
   <View style={styles.containerInner}>
-    <ABCAnalize />
+    <ABCAnalize data={data} />
   </View>
 );
 
-const ExpensesTab = () => (
+const ExpensesTab = ({data}) => (
   <View style={styles.containerInner}>
-    <Expenses />
+    <Expenses data={data} />
   </View>
 );
 
-const AdvertisingTab = () => (
+const AdvertisingTab = ({expenditureData, voronkaData, ordersData, data}) => (
   <View style={styles.containerInner}>
-    <Publicity />
+    <Publicity expenditureData={expenditureData} voronkaData={voronkaData} ordersData={ordersData} data={data} />
   </View>
 );
 
-const renderScene = SceneMap({
-  remains: RemainsTab,
-  abcAnalysis: ABCAnalysisTab,
-  expenses: ExpensesTab,
-  advertising: AdvertisingTab,
-});
-
-export function Analize() {
+export function Analize({
+  expenditureData,
+  abcData,
+  remainData,
+  filter,
+  voronkaData,
+  ordersData,
+  data
+}) {
   const isDarkMode = useColorScheme() === 'dark';
 
   const [index, setIndex] = useState(0);
-  const [routes] = useState([
-    {key: 'remains', title: 'Остатки'},
+  const [routes, setRoutes] = useState([
     {key: 'abcAnalysis', title: 'ABC-анализ'},
     {key: 'expenses', title: 'Расходы'},
     {key: 'advertising', title: 'Реклама'},
   ]);
+
+  useEffect(() => {
+    if(filter.productId !== 'all'){
+      const res  = [...routes]
+      res.unshift({key: 'remains', title: 'Остатки'})
+      setRoutes(res)
+    }
+  }, [filter])
+
+  const renderScene = ({route}) => {
+    switch (route.key) {
+      case 'remains':
+        return <RemainsTab data={remainData} filter={filter} />;
+      case 'abcAnalysis':
+        return <ABCAnalysisTab data={abcData} />;
+      case 'expenses':
+        return <ExpensesTab data={expenditureData} />;
+      case 'advertising':
+        return (
+          <AdvertisingTab
+            expenditureData={expenditureData}
+            voronkaData={voronkaData}
+            ordersData={ordersData}
+            data={data}
+          />
+        );
+      default:
+        return null;
+    }
+  };
 
   return (
     <View style={styles.wrapper}>
@@ -83,7 +113,7 @@ export function Analize() {
                       ? '#6B7188'
                       : '#FFFFFF',
                     borderRadius: 100,
-                    paddingHorizontal: 8,
+                    paddingHorizontal:filter.productId !== 'all' ? 8 : 18,
                     height: 35,
                     display: 'flex',
                     alignItems: 'center',
@@ -147,3 +177,5 @@ const styles = StyleSheet.create({
     paddingTop: 10,
   },
 });
+
+

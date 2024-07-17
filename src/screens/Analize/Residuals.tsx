@@ -1,33 +1,40 @@
 import {View, StyleSheet, useColorScheme, Text, Animated} from 'react-native';
 import ResidualsIcon from '../../assets/icons/Residuals';
-import {useEffect, useRef} from 'react';
+import {useEffect, useRef, useState} from 'react';
 
-export const Residuals = () => {
+export const Residuals = ({datas, filter}) => {
+  const [data, setData] = useState([]);
   const isDarkMode = useColorScheme() === 'dark';
-
-  const data = [
-    {size: 'XS', sum: 16},
-    {size: 'S', sum: 47},
-    {size: 'M', sum: 53},
-    {size: 'L', sum: 11},
-    {size: 'XL', sum: 23},
-  ];
-
-  const minSum = Math.min(...data.map(item => item.sum));
-  const maxSum = Math.max(...data.map(item => item.sum));
-  const animatedWidths = useRef(data.map(() => new Animated.Value(0))).current;
+  const animatedWidths = useRef([]);
 
   useEffect(() => {
-    animatedWidths.forEach((anim, index) => {
-      Animated.timing(anim, {
-        toValue: (data[index].sum / maxSum) * 100,
-        duration: 2000,
-        useNativeDriver: false,
-      }).start();
-    });
-  }, []);
+    if (datas) {
+      const res = Object.entries(datas.sizeRemain).map(([key, value]) => {
+        return {size: key, sum: value};
+      });
+      setData(res);
+    }
+  }, [datas]);
 
-  const getIconColor = (sum: number) => {
+  useEffect(() => {
+    if (data.length > 0) {
+      const maxSum = Math.max(...data.map(item => item.sum));
+      animatedWidths.current = data.map(() => new Animated.Value(0));
+      
+      animatedWidths.current.forEach((anim, index) => {
+        Animated.timing(anim, {
+          toValue: (data[index].sum / maxSum) * 100,
+          duration: 2000,
+          useNativeDriver: false,
+        }).start();
+      });
+    }
+  }, [data]);
+
+  const getIconColor = (sum) => {
+    const minSum = Math.min(...data.map(item => item.sum));
+    const maxSum = Math.max(...data.map(item => item.sum));
+
     if (sum === minSum)
       return {
         color: '#fa3c3d',
@@ -50,7 +57,11 @@ export const Residuals = () => {
     };
   };
 
-  return (
+  if (data.length === 0) {
+    return <View />;
+  }
+
+  return data.length ? (
     <View style={style.wrapper}>
       <View style={style.textWrapper}>
         <Text
@@ -74,7 +85,7 @@ export const Residuals = () => {
                   color: isDarkMode ? '#FFFFFF' : '#3D3F44',
                 },
               ]}>
-              152 шт
+              {datas.allQuantity} шт
             </Text>
           </Text>
           <Text
@@ -103,10 +114,10 @@ export const Residuals = () => {
                   style.bar,
                   {
                     backgroundColor: isDarkMode ? '#4F718D' : '#DBE8ED',
-                    width: animatedWidths[index].interpolate({
+                    width: animatedWidths.current[index]?.interpolate({
                       inputRange: [0, 100],
                       outputRange: ['0%', '90%'],
-                    }),
+                    }) || '0%',
                   },
                 ]}>
                 <Text
@@ -140,6 +151,8 @@ export const Residuals = () => {
         ))}
       </View>
     </View>
+  ) : (
+    <View></View>
   );
 };
 
@@ -152,6 +165,7 @@ const style = StyleSheet.create({
   ResidTitle: {
     fontWeight: '400',
     fontSize: 15,
+    marginLeft: 30,
   },
   textWrapper: {
     display: 'flex',

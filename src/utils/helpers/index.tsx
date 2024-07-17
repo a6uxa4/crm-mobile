@@ -60,7 +60,7 @@ export const addPlusMinus = (value: number): string => {
 };
 
 export const calculatePercentage = ({planSum, allSum, percentage}: {planSum?: number, allSum?: number, percentage: number}) => {
-  const general = {isChip: false, value: '0'}
+  const general = {isChip: false, value: ''}
   if(planSum && allSum){
     const res = allSum - planSum
     general['value'] = `${((res / planSum) * 100).toFixed(1).replace('-', '')}%`;
@@ -80,8 +80,14 @@ export const calculateProgress = (planSum: number, allSum: number) => {
 
 export const expensesCalc = (allExpenses: number, percentage: number) => {
   const percent = (allExpenses / percentage) * 100;
-  console.log(percent)
 }
 
+export const formattedNumber = (number: number) => {
+  const formattedOutput = String(number).replace(
+    /(\d)(?=(\d{3})+(?!\d))/g,
+    '$1 '
+  )
+  return formattedOutput
+}
 
 

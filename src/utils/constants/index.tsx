@@ -29,3 +29,26 @@ export const toastConfig = {
     />
   ),
 };
+
+export const initStateVoronkaData = {
+  views: {
+    quantity: 0,
+    percentage: '0%'
+  },
+  clicks: {
+    quantity: 0,
+    percentage: '0%'
+  },
+  basket: {
+    quantity: 0,
+    percentage: '0%'
+  },
+  ordersCount: {
+    quantity: 0,
+    percentage: '0%'
+  },
+  buyoutsCount: {
+    quantity: 0,
+    percentage: '0%'
+  }
+}

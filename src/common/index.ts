@@ -93,3 +93,36 @@ export interface IOrderArray {
   returns: number
   turnOver: number
 }
+
+export interface IFullStatsStatistic {
+  views: Views
+  clicks: Clicks
+  basket: Basket
+  ordersCount: OrdersCount
+  buyoutsCount: BuyoutsCount
+}
+
+export interface Views {
+  quantity: number
+  percentage: string
+}
+
+export interface Clicks {
+  quantity: number
+  percentage: string
+}
+
+export interface Basket {
+  quantity: number
+  percentage: string
+}
+
+export interface OrdersCount {
+  quantity: number
+  percentage: string
+}
+
+export interface BuyoutsCount {
+  quantity: number
+  percentage: string
+}

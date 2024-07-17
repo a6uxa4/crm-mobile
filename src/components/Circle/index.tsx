@@ -11,7 +11,7 @@ interface IProps {
 }
 
 export const CircleChart: React.FC<IProps> = ({
-  percentage = 18,
+  percentage = 1,
   width = 150,
   height = 150,
   strokeWidth = 10,
