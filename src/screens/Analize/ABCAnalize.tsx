@@ -1,14 +1,8 @@
 import {Text, View, StyleSheet, useColorScheme} from 'react-native';
-import PieChart from '../../components/Charts/PieChart';
+import { PieChart } from '../../components/Charts/PieChart';
 
-export const ABCAnalize = () => {
+export const ABCAnalize = ({data}) => {
   const isDarkMode = useColorScheme() === 'dark';
-
-  // const data = {
-  //   "a": 10,
-  //   "b": 5,
-  //   "c": 10,
-  // };
 
   const COLORS = [
     '#6DE435',
@@ -33,10 +27,10 @@ export const ABCAnalize = () => {
         </Text>
         <View style={style.wrapperInside}>
           <View style={style.leftInner}>
-            {/* <PieChart colors={COLORS} data={data} /> */}
+            <PieChart colors={COLORS} data={data} />
           </View>
           <View style={style.rightInner}>
-            {/* {data &&
+            {data &&
               Object.entries(data).map(([key, value]: any, index) => (
                 <View
                   key={index}
@@ -71,7 +65,7 @@ export const ABCAnalize = () => {
                     {value}
                   </Text>
                 </View>
-              ))} */}
+              ))}
           </View>
         </View>
       </View>

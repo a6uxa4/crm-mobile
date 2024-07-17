@@ -2,15 +2,16 @@ import {StyleSheet, Text, useColorScheme, View} from 'react-native';
 import {CircleChart} from '../../components/Circle';
 import {Badge} from '../../components/Badge';
 import SalesFunnel from '../../components/SalesFunnel';
+import { formattedNumber } from '../../utils/helpers';
 
-export const Publicity = () => {
+export const Publicity = ({expenditureData, voronkaData, ordersData, data}) => {
   const isDarkMode = useColorScheme() === 'dark';
-
+  
   return (
     <View style={style.container}>
       <View style={style.containerTop}>
         <CircleChart
-          percentage={18}
+          percentage={ordersData?.drr}
           width={90}
           height={90}
           strokeWidth={8}
@@ -33,7 +34,7 @@ export const Publicity = () => {
                 style.containerSum,
                 {color: isDarkMode ? '#FFFFFF' : '#3D3F44'},
               ]}>
-              763 000 ₽
+              {formattedNumber(expenditureData?.expenditureAllPrice)} ₽
             </Text>
           </View>
           <View style={style.containerWrapper}>
@@ -52,27 +53,13 @@ export const Publicity = () => {
                 style.containerSum,
                 {color: isDarkMode ? '#FFFFFF' : '#3D3F44'},
               ]}>
-              4 240 000 ₽
+              {formattedNumber(data?.revenue?.allSum)} ₽
             </Text>
           </View>
         </View>
       </View>
       <View style={style.funnelContainer}>
         <View style={style.funnelInner}>
-          <Text
-            style={[
-              style.funnelInnerText,
-              {color: isDarkMode ? '#848FA0' : '#3D3F44'},
-            ]}>
-            просмотров
-          </Text>
-          <Text
-            style={[
-              style.funnelInnerText,
-              {color: isDarkMode ? '#848FA0' : '#3D3F44'},
-            ]}>
-            клики (CTR)
-          </Text>
           <Text
             style={[
               style.funnelInnerText,
@@ -95,7 +82,7 @@ export const Publicity = () => {
             выкуп
           </Text>
         </View>
-        <SalesFunnel />
+        <SalesFunnel expenditureData={expenditureData} voronkaData={voronkaData} ordersData={ordersData} data={data} />
       </View>
     </View>
   );
@@ -123,7 +110,7 @@ const style = StyleSheet.create({
     height: 140,
     flexDirection: 'row',
     justifyContent: 'flex-end',
-    alignItems: 'center',
+    alignItems: 'flex-start',
     marginTop: 15,
     position: 'relative',
   },
@@ -133,7 +120,7 @@ const style = StyleSheet.create({
     gap: 5,
     position: 'absolute',
     left: '10%',
-    top: 27,
+    top: 20,
   },
   funnelInnerText: {
     fontWeight: '400',

@@ -1,64 +1,126 @@
-import {View, useColorScheme} from 'react-native';
-import Svg, {Path, G, Text as SvgText, Circle} from 'react-native-svg';
+import React, { useEffect, useRef } from 'react';
+import { View, StyleSheet, Animated, useColorScheme } from 'react-native';
+import Svg, { Path, G, Text as SvgText } from 'react-native-svg';
 
-const PieChart = ({data, colors}: any) => {
-  const total =
-    data &&
-    Object.entries(data).reduce(
-      (sum: any, [key, value]: any) => sum + value,
-      0,
-    );
-  let startAngle = 0;
+interface IProps {
+  data: Record<string, number>;
+  width?: number;
+  height?: number;
+  colors: string[];
+  innerRadiusRatio?: number; 
+}
 
+export const PieChart: React.FC<IProps> = ({
+  data,
+  width = 150,
+  height = 150,
+  colors,
+  innerRadiusRatio = 0.3 
+}) => {
   const isDarkMode = useColorScheme() === 'dark';
+  const outerRadius = Math.min(width, height) / 2;
+  const innerRadius = outerRadius * innerRadiusRatio;
+  const center = { x: width / 2, y: height / 2 };
+
+  const total = Object.values(data).reduce((sum, value) => sum + value, 0);
+  const animatedValues = useRef(
+    Object.keys(data).reduce((acc, key) => {
+      acc[key] = new Animated.Value(0);
+      return acc;
+    }, {})
+  ).current;
+
+  useEffect(() => {
+    Object.entries(data).forEach(([key, value]) => {
+      Animated.timing(animatedValues[key], {
+        toValue: value,
+        duration: 1000,
+        useNativeDriver: false,
+      }).start();
+    });
+  }, [data]);
+
+  const getPath = (startAngle, endAngle) => {
+    const x1 = center.x + outerRadius * Math.cos(startAngle);
+    const y1 = center.y + outerRadius * Math.sin(startAngle);
+    const x2 = center.x + outerRadius * Math.cos(endAngle);
+    const y2 = center.y + outerRadius * Math.sin(endAngle);
+
+    const x3 = center.x + innerRadius * Math.cos(endAngle);
+    const y3 = center.y + innerRadius * Math.sin(endAngle);
+    const x4 = center.x + innerRadius * Math.cos(startAngle);
+    const y4 = center.y + innerRadius * Math.sin(startAngle);
+
+    const largeArcFlag = endAngle - startAngle <= Math.PI ? "0" : "1";
+
+    return `M ${x1} ${y1} A ${outerRadius} ${outerRadius} 0 ${largeArcFlag} 1 ${x2} ${y2} L ${x3} ${y3} A ${innerRadius} ${innerRadius} 0 ${largeArcFlag} 0 ${x4} ${y4} Z`;
+  };
+
+  const getTextPosition = (startAngle, endAngle) => {
+    const midAngle = (startAngle + endAngle) / 2;
+    const textRadius = (outerRadius + innerRadius) / 2;
+    return {
+      x: center.x + textRadius * Math.cos(midAngle),
+      y: center.y + textRadius * Math.sin(midAngle),
+    };
+  };
 
   return (
-    total && (
-      <View style={{alignItems: 'center'}}>
-        <Svg height="150" width="150" viewBox="-1 -1 2 2">
-          {Object.entries(data).map(([key, value]: any, index) => {
-            const angle = (value / total) * 359.9;
-            const largeArcFlag = angle > 180 ? 1 : 0;
-            const endAngle = startAngle + angle;
-
-            const x1 = Math.cos((startAngle * Math.PI) / 180);
-            const y1 = Math.sin((startAngle * Math.PI) / 180);
-            const x2 = Math.cos((endAngle * Math.PI) / 180);
-            const y2 = Math.sin((endAngle * Math.PI) / 180);
-
-            const pathData = `M ${x1} ${y1} A 1 1 0 ${largeArcFlag} 1 ${x2} ${y2} L 0 0`;
-
-            const midAngle = startAngle + angle / 5;
-            const textX = Math.cos((midAngle * Math.PI) / 180) * 0.5;
-            const textY = Math.sin((midAngle * Math.PI) / 180) * 0.6;
-
-            startAngle = endAngle;
+    <View style={[styles.container, { width, height }]}>
+      <Svg width={width} height={height}>
+        <G>
+          {Object.entries(data).map(([key, value], index) => {
+            const startAngle = index === 0 ? 0 : Object.entries(data)
+              .slice(0, index)
+              .reduce((sum, [, val]) => sum + (val / total) * 2 * Math.PI, 0);
+            const endAngle = startAngle + (value / total) * 2 * Math.PI;
+            const textPosition = getTextPosition(startAngle, endAngle);
 
             return (
-              <G key={index}>
-                <Path
-                  d={pathData}
-                  fill={colors[index]}
-                  stroke={isDarkMode ? '#1A2A3D' : 'white'}
-                  strokeWidth="0.01"
+              <React.Fragment key={key}>
+                <AnimatedPath
+                  d={animatedValues[key].interpolate({
+                    inputRange: [0, value],
+                    outputRange: [getPath(startAngle, startAngle), getPath(startAngle, endAngle)],
+                  })}
+                  fill={colors[index % colors.length]}
                 />
                 <SvgText
-                  x={textX}
-                  y={textY}
-                  fontSize="0.2"
+                  x={textPosition.x}
+                  y={textPosition.y - 10}
+                  fill={!isDarkMode ? '#FFFFFF' : '#3D3F44'}
+                  fontSize="16"
+                  fontWeight="bold"
                   textAnchor="middle"
-                  fill="white"
-                  fontWeight="bold">
+                  alignmentBaseline="middle"
+                >
                   {key}
                 </SvgText>
-              </G>
+                <SvgText
+                  x={textPosition.x}
+                  y={textPosition.y + 5}
+                  fill={!isDarkMode ? '#FFFFFF' : '#3D3F44'}
+                  fontSize="16"
+                  fontWeight="400"
+                  textAnchor="middle"
+                  alignmentBaseline="middle"
+                >
+                  {value}
+                </SvgText>
+              </React.Fragment>
             );
           })}
-          <Circle r="0.32" fill={isDarkMode ? '#1A2A3D' : 'white'} />
-        </Svg>
-      </View>
-    )
+        </G>
+      </Svg>
+    </View>
   );
 };
 
-export default PieChart;
+const AnimatedPath = Animated.createAnimatedComponent(Path);
+
+const styles = StyleSheet.create({
+  container: {
+    position: 'relative',
+    overflow: 'hidden'
+  },
+});

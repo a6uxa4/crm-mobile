@@ -1,15 +1,17 @@
 import {useColorScheme} from 'react-native';
 import Svg, {Polygon, Line, Text} from 'react-native-svg';
+import {formattedNumber} from '../../utils/helpers';
 
-const SalesFunnel = () => {
+const SalesFunnel = ({expenditureData, voronkaData, ordersData, data}) => {
   const isDarkMode = useColorScheme() === 'dark';
 
   const width = 230;
-  const height = 130;
+  const height = 90;
   const funnelBgColor = isDarkMode ? '#0060A6' : '#B2DFFF';
   const lineColor = isDarkMode ? '#1A2A3D' : '#ffffff';
   const textColor = isDarkMode ? '#ffffff' : '#3D3F44';
   const gridColor = isDarkMode ? '#848FA0' : '#DCDCDC';
+
   return (
     <Svg width={width} height={height}>
       <Polygon
@@ -17,7 +19,7 @@ const SalesFunnel = () => {
         fill={funnelBgColor}
       />
       <Line
-        x1="20"
+        x1="40"
         y1="43"
         x2={width - 20}
         y2="43"
@@ -25,7 +27,7 @@ const SalesFunnel = () => {
         strokeWidth="1.5"
       />
       <Line
-        x1="30"
+        x1="50"
         y1="66"
         x2={width - 30}
         y2="66"
@@ -33,18 +35,10 @@ const SalesFunnel = () => {
         strokeWidth="1.5"
       />
       <Line
-        x1="40"
-        y1="87"
-        x2={width - 40}
-        y2="87"
-        stroke={lineColor}
-        strokeWidth="1.5"
-      />
-      <Line
         x1="50"
-        y1="107"
-        x2={width - 50}
-        y2="107"
+        y1="89"
+        x2={width - 30}
+        y2="89"
         stroke={lineColor}
         strokeWidth="1.5"
       />
@@ -58,24 +52,18 @@ const SalesFunnel = () => {
         Воронка продаж
       </Text>
       <Text x="135" y="36" fill={textColor} fontSize="14" textAnchor="middle">
-        12890
+        {formattedNumber(voronkaData?.basket?.quantity)}
       </Text>
       <Text x="135" y="59" fill={textColor} fontSize="14" textAnchor="middle">
-        1584
+        {formattedNumber(voronkaData?.ordersCount?.quantity)}
       </Text>
-      <Text x="135" y="81" fill={textColor} fontSize="14" textAnchor="middle">
-        182
-      </Text>
-      <Text x="135" y="102" fill={textColor} fontSize="14" textAnchor="middle">
-        59
-      </Text>
-      <Text x="135" y="123" fill={textColor} fontSize="14" textAnchor="middle">
-        28
+      <Text x="135" y="82" fill={textColor} fontSize="14" textAnchor="middle">
+        {formattedNumber(voronkaData?.buyoutsCount?.quantity)}
       </Text>
       <Line
         x1="0"
         y1="43"
-        x2="60"
+        x2="67"
         y2="43"
         stroke={gridColor}
         strokeWidth="1.5"
@@ -83,35 +71,28 @@ const SalesFunnel = () => {
       <Line
         x1="0"
         y1="66"
-        x2="70"
+        x2="83"
         y2="66"
         stroke={gridColor}
         strokeWidth="1.5"
       />
       <Line
         x1="0"
-        y1="87"
-        x2="80"
-        y2="87"
-        stroke={gridColor}
-        strokeWidth="1.5"
-      />
-      <Line
-        x1="0"
-        y1="107"
-        x2="90"
-        y2="107"
-        stroke={gridColor}
-        strokeWidth="1.5"
-      />
-      <Line
-        x1="0"
-        y1="129"
+        y1="89"
         x2="100"
-        y2="129"
+        y2="89"
         stroke={gridColor}
         strokeWidth="1.5"
       />
+      <Text
+        x="15"
+        y="37"
+        fill={textColor}
+        fontSize="12px"
+        fontWeight="700"
+        textAnchor="start">
+        {voronkaData?.basket?.percentage}
+      </Text>
       <Text
         x="15"
         y="59"
@@ -119,34 +100,16 @@ const SalesFunnel = () => {
         fontSize="12px"
         fontWeight="700"
         textAnchor="start">
-        11,2%
+        {voronkaData?.ordersCount?.percentage}
       </Text>
       <Text
         x="15"
-        y="80"
+        y="82"
         fill={textColor}
         fontSize="12px"
         fontWeight="700"
         textAnchor="start">
-        18,7%
-      </Text>
-      <Text
-        x="15"
-        y="101"
-        fill={textColor}
-        fontSize="12px"
-        fontWeight="700"
-        textAnchor="start">
-        29,8%
-      </Text>
-      <Text
-        x="15"
-        y="122"
-        fill={textColor}
-        fontSize="12px"
-        fontWeight="700"
-        textAnchor="start">
-        48,1%
+        {voronkaData?.buyoutsCount?.percentage}
       </Text>
     </Svg>
   );

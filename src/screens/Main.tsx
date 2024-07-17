@@ -1,5 +1,5 @@
 import React, {useCallback, useEffect, useState} from 'react';
-import {Header} from './Header';
+import { Header } from './header';
 import {
   RefreshControl,
   ScrollView,
@@ -12,12 +12,17 @@ import useFilter from '../hooks/useFilter';
 import {
   useGetSalesQuery,
   useGetOrdersDataQuery,
+  useGetExpenditureGetQuery,
+  useGetWarehouseProductAbcQuery,
+  useGetRemainQuantityQuery,
+  useGetFullStatsStatisticQuery,
 } from '../services/base.service';
 import {useAuth} from '../hooks/useAuth';
 import {useActions} from '../hooks/useActions';
 import {useDispatch} from 'react-redux';
 import {getUserFromStorage} from '../utils/helpers';
 import {AuthPage} from './auth';
+import {initStateVoronkaData} from '../utils/constants';
 
 export const Main = () => {
   const isDarkMode = useColorScheme() === 'dark';
@@ -54,6 +59,20 @@ export const Main = () => {
   const {data: ordersData, refetch: ordersRefetch} =
     useGetOrdersDataQuery(params);
 
+  const {data: expenditureData, refetch: expenditureRefetch} =
+    useGetExpenditureGetQuery(params);
+
+  const {data: abcData, refetch: abcRefetch} =
+    useGetWarehouseProductAbcQuery(params);
+
+  const {data: remainData, refetch: remainRefetch} = useGetRemainQuantityQuery(
+    {productId: filter.productId},
+    {skip: !filter.productId},
+  );
+
+  const {data: voronkaData = initStateVoronkaData, refetch: voronkaRefetch} =
+    useGetFullStatsStatisticQuery(params);
+
   const onRefresh = useCallback(() => {
     setRefreshing(true);
     refetch().then(() => {
@@ -61,7 +80,13 @@ export const Main = () => {
         setRefreshing(false);
       }, 1000);
     });
-  }, [refetch, ordersRefetch]);
+  }, [
+    refetch,
+    ordersRefetch,
+    expenditureRefetch,
+    remainRefetch,
+    voronkaRefetch,
+  ]);
 
   if (!IsAuthentication) {
     return <AuthPage />;
@@ -83,7 +108,11 @@ export const Main = () => {
             filter={filter}
             data={data}
             ordersData={ordersData}
+            expenditureData={expenditureData}
+            abcData={abcData}
             params={params}
+            remainData={remainData}
+            voronkaData={voronkaData}
           />
         </ScrollView>
       </>
