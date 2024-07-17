@@ -3,9 +3,15 @@ import {Chip} from '../../components/Chip';
 import {Gauge} from '../../components/Gauge';
 import {Badge} from '../../components/Badge';
 import {calculatePercentage, expensesCalc} from '../../utils/helpers';
-import { IOrdersData } from '../../common';
+import {IOrdersData} from '../../common';
 
-export const Expenses = ({data, ordersData}: {data: any, ordersData: IOrdersData}) => {
+export const Expenses = ({
+  data,
+  ordersData,
+}: {
+  data: any;
+  ordersData: IOrdersData;
+}) => {
   const isDarkMode = useColorScheme() === 'dark';
 
   return (
@@ -77,16 +83,17 @@ export const Expenses = ({data, ordersData}: {data: any, ordersData: IOrdersData
                   fontSize: 18,
                   color: isDarkMode ? '#FFFFFF' : '#3D3F44',
                 }}>
-                {data?.allProfitability.percentage}%
+                {data?.allProfitability.percentage.split('.')[0]}%
               </Text>
               <Chip
                 backgroundColor={isDarkMode ? '#FFFFFF26' : '#2F2F2F4D'}
-                title={`${data?.allProfitability.lastPercentage.replace(
-                  '-',
-                  '',
-                )}%`}
+                title={`${
+                  data?.allProfitability.lastPercentage
+                    .replace('-', '')
+                    .split('.')[0]
+                }%`}
                 isShort={
-                  calculatePercentage({
+                  !calculatePercentage({
                     percentage: Number(data?.allProfitability.lastPercentage),
                   }).isChip
                 }
@@ -116,16 +123,17 @@ export const Expenses = ({data, ordersData}: {data: any, ordersData: IOrdersData
                   fontSize: 18,
                   color: isDarkMode ? '#FFFFFF' : '#3D3F44',
                 }}>
-                {data?.allMarginality.percentage} %
+                {data?.allMarginality.percentage.split('.')[0]} %
               </Text>
               <Chip
                 backgroundColor={isDarkMode ? '#FFFFFF26' : '#2F2F2F4D'}
-                title={`${data?.allMarginality.lastPercentage.replace(
-                  '-',
-                  '',
-                )}%`}
+                title={`${
+                  data?.allMarginality.lastPercentage
+                    .replace('-', '')
+                    .split('.')[0]
+                }%`}
                 isShort={
-                  calculatePercentage({
+                  !calculatePercentage({
                     percentage: Number(data?.allMarginality.lastPercentage),
                   }).isChip
                 }
@@ -182,7 +190,7 @@ export const Expenses = ({data, ordersData}: {data: any, ordersData: IOrdersData
                 styles.innerText,
                 {color: isDarkMode ? '#FFFFFF' : '#3D3F44'},
               ]}>
-              {ordersData?.drr}%
+              {ordersData?.drr.split('.')[0]}%
             </Text>
           </View>
         </View>
@@ -197,7 +205,7 @@ export const Expenses = ({data, ordersData}: {data: any, ordersData: IOrdersData
                 styles.innerText,
                 {color: isDarkMode ? '#FFFFFF' : '#3D3F44'},
               ]}>
-              {ordersData?.ransoms}%
+              {ordersData?.ransoms.split('.')[0]}%
             </Text>
           </View>
           <View style={styles.box}>
