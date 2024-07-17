@@ -10,17 +10,8 @@ import {G} from 'react-native-svg';
 import {ScrollView, useColorScheme} from 'react-native';
 import {ISalesData} from '../../common';
 
-interface FilterType {
-  productId: string;
-  selectType: string;
-  startPeriod: string;
-  endPeriod: string;
-}
-
 interface IProps {
   data: ISalesData;
-  filter: FilterType;
-  params: any;
   lineVisible: {
     isRevenue: boolean;
     isProfit: boolean;
@@ -29,7 +20,7 @@ interface IProps {
   };
 }
 
-export const Chart = ({data, filter, params, lineVisible}: IProps) => {
+export const Chart = ({data, lineVisible}: IProps) => {
   const isDarkMode = useColorScheme() === 'dark';
 
   if (!data || !data.salesReportsDto || data.salesReportsDto.length === 0) {
@@ -40,7 +31,7 @@ export const Chart = ({data, filter, params, lineVisible}: IProps) => {
     <ScrollView horizontal showsHorizontalScrollIndicator={false}>
       <VictoryChart
         theme={VictoryTheme.material}
-        width={data?.salesReportsDto.length * 60}
+        width={data?.salesReportsDto.length * 30}
         padding={{top: 20, bottom: 50, left: 50, right: 50}}
         height={160}>
         <VictoryGroup offset={10}>
@@ -132,6 +123,7 @@ export const Chart = ({data, filter, params, lineVisible}: IProps) => {
           dependentAxis
           offsetX={45}
           offsetY={20}
+          tickFormat={t => `${Math.round(t)}`}
           style={{
             axis: {
               stroke: isDarkMode ? '#FFFFFF' : '#405385',

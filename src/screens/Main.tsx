@@ -1,5 +1,5 @@
 import React, {useCallback, useEffect, useState} from 'react';
-import {Header} from './header';
+import { Header } from './header';
 import {
   RefreshControl,
   ScrollView,
