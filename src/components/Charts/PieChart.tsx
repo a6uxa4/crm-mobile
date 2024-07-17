@@ -1,33 +1,33 @@
-import React, { useEffect, useRef } from 'react';
-import { View, StyleSheet, Animated, useColorScheme } from 'react-native';
-import Svg, { Path, G, Text as SvgText } from 'react-native-svg';
+import React, {useEffect, useRef} from 'react';
+import {View, StyleSheet, Animated, useColorScheme} from 'react-native';
+import Svg, {Path, G, Text as SvgText} from 'react-native-svg';
 
 interface IProps {
   data: Record<string, number>;
   width?: number;
   height?: number;
   colors: string[];
-  innerRadiusRatio?: number; 
+  innerRadiusRatio?: number;
 }
 
 export const PieChart: React.FC<IProps> = ({
-  data,
+  data = {},
   width = 150,
   height = 150,
   colors,
-  innerRadiusRatio = 0.3 
+  innerRadiusRatio = 0.3,
 }) => {
   const isDarkMode = useColorScheme() === 'dark';
   const outerRadius = Math.min(width, height) / 2;
   const innerRadius = outerRadius * innerRadiusRatio;
-  const center = { x: width / 2, y: height / 2 };
+  const center = {x: width / 2, y: height / 2};
 
   const total = Object.values(data).reduce((sum, value) => sum + value, 0);
   const animatedValues = useRef(
     Object.keys(data).reduce((acc, key) => {
       acc[key] = new Animated.Value(0);
       return acc;
-    }, {})
+    }, {}),
   ).current;
 
   useEffect(() => {
@@ -51,7 +51,7 @@ export const PieChart: React.FC<IProps> = ({
     const x4 = center.x + innerRadius * Math.cos(startAngle);
     const y4 = center.y + innerRadius * Math.sin(startAngle);
 
-    const largeArcFlag = endAngle - startAngle <= Math.PI ? "0" : "1";
+    const largeArcFlag = endAngle - startAngle <= Math.PI ? '0' : '1';
 
     return `M ${x1} ${y1} A ${outerRadius} ${outerRadius} 0 ${largeArcFlag} 1 ${x2} ${y2} L ${x3} ${y3} A ${innerRadius} ${innerRadius} 0 ${largeArcFlag} 0 ${x4} ${y4} Z`;
   };
@@ -66,22 +66,31 @@ export const PieChart: React.FC<IProps> = ({
   };
 
   return (
-    <View style={[styles.container, { width, height }]}>
+    <View style={[styles.container, {width, height}]}>
       <Svg width={width} height={height}>
         <G>
           {Object.entries(data).map(([key, value], index) => {
-            const startAngle = index === 0 ? 0 : Object.entries(data)
-              .slice(0, index)
-              .reduce((sum, [, val]) => sum + (val / total) * 2 * Math.PI, 0);
+            const startAngle =
+              index === 0
+                ? 0
+                : Object.entries(data)
+                    .slice(0, index)
+                    .reduce(
+                      (sum, [, val]) => sum + (val / total) * 2 * Math.PI,
+                      0,
+                    );
             const endAngle = startAngle + (value / total) * 2 * Math.PI;
             const textPosition = getTextPosition(startAngle, endAngle);
 
             return (
               <React.Fragment key={key}>
                 <AnimatedPath
-                  d={animatedValues[key].interpolate({
+                  d={animatedValues[key]?.interpolate({
                     inputRange: [0, value],
-                    outputRange: [getPath(startAngle, startAngle), getPath(startAngle, endAngle)],
+                    outputRange: [
+                      getPath(startAngle, startAngle),
+                      getPath(startAngle, endAngle),
+                    ],
                   })}
                   fill={colors[index % colors.length]}
                 />
@@ -92,8 +101,7 @@ export const PieChart: React.FC<IProps> = ({
                   fontSize="16"
                   fontWeight="bold"
                   textAnchor="middle"
-                  alignmentBaseline="middle"
-                >
+                  alignmentBaseline="middle">
                   {key}
                 </SvgText>
                 <SvgText
@@ -103,8 +111,7 @@ export const PieChart: React.FC<IProps> = ({
                   fontSize="16"
                   fontWeight="400"
                   textAnchor="middle"
-                  alignmentBaseline="middle"
-                >
+                  alignmentBaseline="middle">
                   {value}
                 </SvgText>
               </React.Fragment>
@@ -121,6 +128,6 @@ const AnimatedPath = Animated.createAnimatedComponent(Path);
 const styles = StyleSheet.create({
   container: {
     position: 'relative',
-    overflow: 'hidden'
+    overflow: 'hidden',
   },
 });

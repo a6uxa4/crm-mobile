@@ -1,5 +1,5 @@
 import React, {useCallback, useEffect, useState} from 'react';
-import { Header } from './header';
+import {Header} from './Header';
 import {
   RefreshControl,
   ScrollView,
@@ -73,13 +73,14 @@ export const Main = () => {
   const {data: voronkaData = initStateVoronkaData, refetch: voronkaRefetch} =
     useGetFullStatsStatisticQuery(params);
 
-  const onRefresh = useCallback(() => {
-    setRefreshing(true);
-    refetch().then(() => {
-      setTimeout(() => {
-        setRefreshing(false);
-      }, 1000);
-    });
+  const globalRefetch = useCallback(() => {
+    return Promise.all([
+      refetch(),
+      ordersRefetch(),
+      expenditureRefetch(),
+      remainRefetch(),
+      voronkaRefetch(),
+    ]);
   }, [
     refetch,
     ordersRefetch,
@@ -87,6 +88,15 @@ export const Main = () => {
     remainRefetch,
     voronkaRefetch,
   ]);
+
+  const onRefresh = useCallback(() => {
+    setRefreshing(true);
+    globalRefetch().then(() => {
+      setTimeout(() => {
+        setRefreshing(false);
+      }, 1000);
+    });
+  }, [globalRefetch]);
 
   if (!IsAuthentication) {
     return <AuthPage />;

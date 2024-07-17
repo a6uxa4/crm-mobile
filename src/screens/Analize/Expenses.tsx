@@ -1,5 +1,4 @@
 import {Text, View, StyleSheet, useColorScheme} from 'react-native';
-// import {useGetAllExpenseQuery} from '../../services/base.service';
 
 export const Expenses = ({data}: any) => {
   const isDarkMode = useColorScheme() === 'dark';
@@ -35,7 +34,7 @@ export const Expenses = ({data}: any) => {
         </View>
         <View style={style.wrapperMapping}>
           {data &&
-            data?.expenditureItems.map((item: any, index: number) => (
+            data?.expenditureItems?.map((item: any, index: number) => (
               <View
                 style={[
                   style.wrapperMain,
