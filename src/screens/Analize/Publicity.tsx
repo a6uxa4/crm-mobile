@@ -2,11 +2,11 @@ import {StyleSheet, Text, useColorScheme, View} from 'react-native';
 import {CircleChart} from '../../components/Circle';
 import {Badge} from '../../components/Badge';
 import SalesFunnel from '../../components/SalesFunnel';
-import { formattedNumber } from '../../utils/helpers';
+import {formattedNumber} from '../../utils/helpers';
 
 export const Publicity = ({expenditureData, voronkaData, ordersData, data}) => {
   const isDarkMode = useColorScheme() === 'dark';
-  
+
   return (
     <View style={style.container}>
       <View style={style.containerTop}>
@@ -34,7 +34,10 @@ export const Publicity = ({expenditureData, voronkaData, ordersData, data}) => {
                 style.containerSum,
                 {color: isDarkMode ? '#FFFFFF' : '#3D3F44'},
               ]}>
-              {formattedNumber(expenditureData?.expenditureAllPrice)} ₽
+              {formattedNumber(expenditureData?.expenditureAllPrice)
+                ? formattedNumber(expenditureData?.expenditureAllPrice)
+                : '0'}
+              {''}₽
             </Text>
           </View>
           <View style={style.containerWrapper}>
@@ -53,13 +56,23 @@ export const Publicity = ({expenditureData, voronkaData, ordersData, data}) => {
                 style.containerSum,
                 {color: isDarkMode ? '#FFFFFF' : '#3D3F44'},
               ]}>
-              {formattedNumber(data?.revenue?.allSum)} ₽
+              {formattedNumber(data?.revenue?.allSum)
+                ? formattedNumber(data?.revenue?.allSum)
+                : '0'}{' '}
+              ₽
             </Text>
           </View>
         </View>
       </View>
       <View style={style.funnelContainer}>
         <View style={style.funnelInner}>
+          <Text
+            style={[
+              style.funnelInnerText,
+              {color: isDarkMode ? '#848FA0' : '#3D3F44'},
+            ]}>
+            клики
+          </Text>
           <Text
             style={[
               style.funnelInnerText,
@@ -82,7 +95,12 @@ export const Publicity = ({expenditureData, voronkaData, ordersData, data}) => {
             выкуп
           </Text>
         </View>
-        <SalesFunnel expenditureData={expenditureData} voronkaData={voronkaData} ordersData={ordersData} data={data} />
+        <SalesFunnel
+          expenditureData={expenditureData}
+          voronkaData={voronkaData}
+          ordersData={ordersData}
+          data={data}
+        />
       </View>
     </View>
   );

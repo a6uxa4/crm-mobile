@@ -27,7 +27,7 @@ export const ABCAnalize = ({data}) => {
         </Text>
         <View style={style.wrapperInside}>
           <View style={style.leftInner}>
-            <PieChart colors={COLORS} data={data} />
+            {data && <PieChart colors={COLORS} data={data} />}
           </View>
           <View style={style.rightInner}>
             {data &&

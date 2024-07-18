@@ -1,5 +1,5 @@
 import {View} from 'react-native';
-import {Navbar} from './Navbar';
+import { Navbar } from './navbar';
 import {Revenues} from './Revenues';
 import {Expenses} from './Expenses';
 import {Analize} from './Analize';
@@ -57,8 +57,8 @@ export const Content = ({
         ordersData={ordersData}
         data={data}
       />
-      <ChartProfit data={data} filter={filter} params={params} />
-      <ChartOrder />
+      {/* <ChartProfit data={data} filter={filter} params={params} />
+      <ChartOrder /> */}
     </View>
   );
 };
