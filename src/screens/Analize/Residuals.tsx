@@ -1,11 +1,15 @@
 import {View, StyleSheet, useColorScheme, Text, Animated} from 'react-native';
 import ResidualsIcon from '../../assets/icons/Residuals';
 import {useEffect, useRef, useState} from 'react';
+import { useSelector } from 'react-redux';
+import { RootState } from '../../store';
 
 export const Residuals = ({datas, filter}) => {
   const [data, setData] = useState([]);
   const isDarkMode = useColorScheme() === 'dark';
   const animatedWidths = useRef([]);
+
+  const {product} = useSelector((state: RootState) => state.helpers)
 
   useEffect(() => {
     if (datas) {
@@ -61,7 +65,7 @@ export const Residuals = ({datas, filter}) => {
     return <View />;
   }
 
-  return data.length ? (
+  return !data.length ? (
     <View style={style.wrapper}>
       <View style={style.textWrapper}>
         <Text
@@ -69,7 +73,7 @@ export const Residuals = ({datas, filter}) => {
             style.ResidTitle,
             {color: isDarkMode ? '#FFFFFF' : '#161616'},
           ]}>
-          «1292054001 джемпер поло»
+          {product}
         </Text>
         <View style={style.textInnerWrapper}>
           <Text

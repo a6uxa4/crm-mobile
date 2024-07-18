@@ -26,7 +26,12 @@ const ExpensesTab = ({data}) => (
 
 const AdvertisingTab = ({expenditureData, voronkaData, ordersData, data}) => (
   <View style={styles.containerInner}>
-    <Publicity expenditureData={expenditureData} voronkaData={voronkaData} ordersData={ordersData} data={data} />
+    <Publicity
+      expenditureData={expenditureData}
+      voronkaData={voronkaData}
+      ordersData={ordersData}
+      data={data}
+    />
   </View>
 );
 
@@ -37,24 +42,35 @@ export function Analize({
   filter,
   voronkaData,
   ordersData,
-  data
+  data,
 }) {
   const isDarkMode = useColorScheme() === 'dark';
 
   const [index, setIndex] = useState(0);
   const [routes, setRoutes] = useState([
+    {key: 'remains', title: 'Остатки'},
     {key: 'abcAnalysis', title: 'ABC-анализ'},
     {key: 'expenses', title: 'Расходы'},
     {key: 'advertising', title: 'Реклама'},
   ]);
 
   useEffect(() => {
-    if(filter.productId !== 'all'){
-      const res  = [...routes]
-      res.unshift({key: 'remains', title: 'Остатки'})
-      setRoutes(res)
+    if (filter) {
+      if (filter.productId === 'all' || !filter.productId || !filter['productId'] === undefined) {
+        if (routes.length > 3) {
+          const res = [...routes];
+          res.shift()
+          setRoutes(res);
+        }
+      } else {
+        if (routes.length < 4) {
+          const res = [...routes];
+          res.unshift({key: 'remains', title: 'Остатки'});
+          setRoutes(res);
+        }
+      }
     }
-  }, [filter])
+  }, [filter.productId]);
 
   const renderScene = ({route}) => {
     switch (route.key) {
@@ -113,7 +129,7 @@ export function Analize({
                       ? '#6B7188'
                       : '#FFFFFF',
                     borderRadius: 100,
-                    paddingHorizontal:filter.productId !== 'all' ? 8 : 18,
+                    paddingHorizontal: filter.productId === 'all' || !filter.productId ? 18 : 8,
                     height: 35,
                     display: 'flex',
                     alignItems: 'center',
@@ -177,5 +193,3 @@ const styles = StyleSheet.create({
     paddingTop: 10,
   },
 });
-
-

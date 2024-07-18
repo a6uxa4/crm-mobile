@@ -2,11 +2,11 @@
   import {createSlice} from '@reduxjs/toolkit';
   
   const initialState: any = {
-    product: 'Все товары',
+    product: '',
   };
   
-  export const authSlice = createSlice({
-    name: 'auth',
+  export const helpersSlice = createSlice({
+    name: 'helpers',
     initialState,
     reducers: {
       setProduct: (state, action) => {
@@ -15,6 +15,6 @@
     },
   });
   
-  export const authActions = authSlice.actions;
-  export const authReducer = authSlice.reducer;
+  export const {setProduct} = helpersSlice.actions;
+  export const authReducer = helpersSlice.reducer;
   

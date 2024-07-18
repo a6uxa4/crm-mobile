@@ -4,6 +4,7 @@ import {
   TouchableOpacity,
   useColorScheme,
   View,
+  Platform,
 } from 'react-native';
 import UserIcon from '../../assets/icons/UserIcon';
 import MenuIcon from '../../assets/icons/MenuIcon';
@@ -55,12 +56,12 @@ export const Header = () => {
 const styles = StyleSheet.create({
   header: {
     width: '100%',
-    height: 100,
+    height: Platform.OS === 'ios' ? 100 : 65,
     zIndex: 1000,
-    paddingTop: 50,
+    paddingTop: Platform.OS === 'ios' ? 50 : 10,
   },
   headerInside: {
-    height: 50,
+    height: 50 ,
     paddingHorizontal: 20,
     display: 'flex',
     flexDirection: 'row',

@@ -54,7 +54,7 @@ export const CircleChart: React.FC<IProps> = ({
             styles.percentage,
             {color: isDarkMode ? '#FFFFFF' : '#3D3F44'},
           ]}>
-          {percentage}%
+          {String(percentage).split('.')[0]}%
         </Text>
       </View>
       <Svg width={width} height={height}>
