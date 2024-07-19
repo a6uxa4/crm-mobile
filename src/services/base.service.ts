@@ -35,6 +35,12 @@ export const baseApi = createApi({
         params,
       }),
     }),
+    getExpenses: build.query<any, any>({
+      query: params => ({
+        url: `/all/expenses`,
+        params,
+      }),
+    }),
     getWarehouseProductAbc: build.query<any, IParams>({
       query: params => ({
         url: `/warehouse-product/abc`,
@@ -63,4 +69,5 @@ export const {
   useGetExpenditureGetQuery,
   useGetWarehouseProductAbcQuery,
   useGetRemainQuantityQuery,
+  useGetExpensesQuery
 } = baseApi;

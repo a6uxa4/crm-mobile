@@ -4,7 +4,7 @@ const useFilter = (initialFilter?: any) => {
   const PERIODS_ENG = ['day', 'week', 'month', 'year', 'period'];
 
   const [filter, setFilterState] = useState<any>(initialFilter || {});
-  const [params, setParams] = useState<any>();
+  const [params, setParams] = useState<any>({day: true});
 
   const setFilter = useCallback((newFilter: any) => {
     setFilterState((prevFilter: any) => {

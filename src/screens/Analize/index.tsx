@@ -43,6 +43,7 @@ export function Analize({
   voronkaData,
   ordersData,
   data,
+  ExpensesData
 }) {
   const isDarkMode = useColorScheme() === 'dark';
 
@@ -79,7 +80,7 @@ export function Analize({
       case 'abcAnalysis':
         return <ABCAnalysisTab data={abcData} />;
       case 'expenses':
-        return <ExpensesTab data={expenditureData} />;
+        return <ExpensesTab data={ExpensesData} />;
       case 'advertising':
         return (
           <AdvertisingTab

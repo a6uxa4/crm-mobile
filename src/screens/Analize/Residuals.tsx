@@ -61,11 +61,7 @@ export const Residuals = ({datas, filter}) => {
     };
   };
 
-  if (data.length === 0) {
-    return <View />;
-  }
-
-  return !data.length ? (
+  return data.length ? (
     <View style={style.wrapper}>
       <View style={style.textWrapper}>
         <Text
