@@ -107,7 +107,7 @@ export function Analize({
           renderScene={renderScene}
           onIndexChange={setIndex}
           style={{
-            width: '100%',
+            width: 'auto',
             maxWidth: 350,
           }}
           renderTabBar={props => (

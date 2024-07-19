@@ -1,5 +1,5 @@
 import React, {useCallback, useEffect, useState} from 'react';
-import {Header} from './header';
+import {Header} from './Header';
 import {
   RefreshControl,
   ScrollView,
@@ -55,8 +55,6 @@ export const Main = () => {
     endPeriod: '',
   });
 
-  console.log(params, 'this is params');
-
   const {data, refetch} = useGetSalesQuery(params);
 
   const {data: ordersData, refetch: ordersRefetch} =
@@ -68,43 +66,7 @@ export const Main = () => {
   const {data: abcData, refetch: abcRefetch} =
     useGetWarehouseProductAbcQuery(params);
 
-  // const {data: ExpensesData = []} = useGetExpensesQuery(params)
-
-  const ExpensesData = {
-    allExpenditure: 620649.8,
-    expenditureItems: [
-      {
-        expenditureId: 0,
-        expenditureName: 'Себестоимость товаров',
-        expenditurePrice: 254725,
-        percentage: '41.0%',
-      },
-      {
-        expenditureId: 0,
-        expenditureName: 'Реклама WB',
-        expenditurePrice: 306947,
-        percentage: '49.5%',
-      },
-      {
-        expenditureId: 0,
-        expenditureName: 'Логистика WB',
-        expenditurePrice: 58967.8,
-        percentage: '9.5%',
-      },
-      {
-        expenditureId: 0,
-        expenditureName: 'Штрафы WB',
-        expenditurePrice: 10,
-        percentage: '0.0%',
-      },
-      {
-        expenditureId: 0,
-        expenditureName: 'Удержания ВБ',
-        expenditurePrice: 0,
-        percentage: '0.0%',
-      },
-    ],
-  };
+  const {data: ExpensesData = []} = useGetExpensesQuery(params);
 
   const {data: remainData, refetch: remainRefetch} = useGetRemainQuantityQuery(
     {productId: filter.productId},

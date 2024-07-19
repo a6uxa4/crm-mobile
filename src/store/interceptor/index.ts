@@ -7,7 +7,7 @@ import {
 import {RootState} from '..';
 
 export const baseQuery = fetchBaseQuery({
-  baseUrl: 'http://84.201.167.201:8089/',
+  baseUrl: 'https://back.impulsefinance.ru',
   prepareHeaders(headers, api) {
     const token = (api.getState() as RootState).auth.user?.accessToken;
     if (token) {

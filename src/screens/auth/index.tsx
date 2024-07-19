@@ -47,37 +47,18 @@ export const AuthPage = () => {
   const signIn = async () => {
     try {
       const DATA_FOR_UPDATE = {email: data.email, password: data.password};
-      const checkServer = async () => {
-        try {
-          const response = await fetch('http://84.201.167.201:8089/identity/auth/login', {
-            method: 'POST',
-            headers: {
-              'Content-Type': 'application/json',
-            },
-            body: JSON.stringify(DATA_FOR_UPDATE), 
-          });
-  
-          if (response.ok) {
-            const responseData = await response.json(); 
-            saveUser(responseData);
-          } else {
-          }
-        } catch (error) {
-          console.error('Error connecting to the server:', error);
-        }
-      };
-  
-      await checkServer();
-  
+      const response = await Login(DATA_FOR_UPDATE).unwrap();
+      saveUser(response);
       setData({
         email: '',
         password: '',
         secureTextEntry: true,
       });
-      Toast.show({
-        type: 'success',
-        text1: 'Успешный вход',
-        text2: 'Добро пожаловать',
+
+      setData({
+        email: '',
+        password: '',
+        secureTextEntry: true,
       });
     } catch (error) {
       Toast.show({
@@ -87,7 +68,6 @@ export const AuthPage = () => {
       });
     }
   };
-  
 
   return (
     <View style={styles.container}>
