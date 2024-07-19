@@ -24,10 +24,9 @@ interface FilterType {
 interface IProps {
   data: ISalesData;
   filter: FilterType;
-  params: any;
 }
 
-export const ChartProfit = ({data, filter, params}: IProps) => {
+export const ChartProfit = ({data, filter}: IProps) => {
   const isDarkMode = useColorScheme() === 'dark';
 
   const [activeTab, setActiveTab] = useState(0);

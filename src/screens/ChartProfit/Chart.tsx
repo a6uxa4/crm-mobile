@@ -5,7 +5,6 @@ import {
   VictoryTheme,
   VictoryGroup,
   VictoryLine,
-  VictoryArea,
 } from 'victory-native';
 import {G} from 'react-native-svg';
 import {ScrollView, useColorScheme} from 'react-native';
@@ -32,7 +31,7 @@ interface IProps {
 export const Chart = ({data, lineVisible, filter}: IProps) => {
   const isDarkMode = useColorScheme() === 'dark';
 
-  if (!data || !data.salesReportsDto || data.salesReportsDto.length === 0) {
+  if (!data || !data?.salesReportsDto || data?.salesReportsDto?.length === 0) {
     return null;
   }
 
@@ -42,8 +41,12 @@ export const Chart = ({data, lineVisible, filter}: IProps) => {
         theme={VictoryTheme.material}
         width={
           +filter.selectType === 3
-            ? data?.salesReportsDto.length * 15
-            : data?.salesReportsDto.length * 60
+            ? data?.salesReportsDto?.length * 10
+            : +filter.selectType === 2
+            ? data?.salesReportsDto?.length * 40
+            : +filter.selectType === 0
+            ? data?.salesReportsDto?.length * 30
+            : data?.salesReportsDto?.length * 60
         }
         padding={{top: 20, bottom: 50, left: 50, right: 50}}
         height={160}>
@@ -118,7 +121,7 @@ export const Chart = ({data, lineVisible, filter}: IProps) => {
         )}
         <VictoryAxis
           gridComponent={<G />}
-          tickValues={data?.salesReportsDto.map(item => item.hourOrDayOrWeek)}
+          tickValues={data?.salesReportsDto?.map(item => item.hourOrDayOrWeek)}
           style={{
             axis: {
               stroke: isDarkMode ? '#FFFFFF' : '#405385',
@@ -134,7 +137,7 @@ export const Chart = ({data, lineVisible, filter}: IProps) => {
         <VictoryAxis
           gridComponent={<G />}
           dependentAxis
-          offsetX={45}
+          offsetX={40}
           offsetY={20}
           tickFormat={t => `${Math.round(t)}`}
           style={{

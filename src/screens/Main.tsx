@@ -123,7 +123,6 @@ export const Main = () => {
             ordersData={ordersData}
             expenditureData={expenditureData}
             abcData={abcData}
-            params={params}
             remainData={remainData}
             voronkaData={voronkaData}
             ExpensesData={ExpensesData}

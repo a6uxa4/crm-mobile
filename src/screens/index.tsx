@@ -18,26 +18,24 @@ interface IProps {
   setFilter: (filter: Partial<FilterType>) => void;
   filter: FilterType;
   data: ISalesData;
-  params: any;
   ordersData: IOrdersData;
   expenditureData: any;
   abcData: any;
   remainData: any;
   voronkaData: any;
-  ExpensesData: any
+  ExpensesData: any;
 }
 
 export const Content = ({
   setFilter,
   filter,
   data,
-  params,
   ordersData,
   expenditureData,
   abcData,
   remainData,
   voronkaData,
-  ExpensesData
+  ExpensesData,
 }: IProps) => {
   return (
     <View
@@ -60,7 +58,7 @@ export const Content = ({
         data={data}
         ExpensesData={ExpensesData}
       />
-      <ChartProfit data={data} filter={filter} params={params} />
+      <ChartProfit data={data} filter={filter} />
       <ChartOrder />
     </View>
   );
