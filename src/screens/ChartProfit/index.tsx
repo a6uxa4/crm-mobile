@@ -112,7 +112,7 @@ export const ChartProfit = ({data, filter, params}: IProps) => {
         ))}
       </View>
       <HeadTitle />
-      <Chart data={data} lineVisible={lineVisible} />
+      <Chart data={data} lineVisible={lineVisible} filter={filter} />
       <Footer lineVisible={lineVisible} setLineVisible={setLineVisible} />
     </View>
   );
