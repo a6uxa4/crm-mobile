@@ -33,66 +33,65 @@ export const Expenses = ({data}: any) => {
           </Text>
         </View>
         <View style={style.wrapperMapping}>
-          {data &&
-            data?.expenditureItems?.map((item: any, index: number) => (
+          {data?.expenditureItems?.map((item: any, index: number) => (
+            <View
+              style={[
+                style.wrapperMain,
+                {backgroundColor: isDarkMode ? '#2F3F51' : '#F4F7F9'},
+              ]}
+              key={index}>
               <View
-                style={[
-                  style.wrapperMain,
-                  {backgroundColor: isDarkMode ? '#2F3F51' : '#F4F7F9'},
-                ]}
-                key={index}>
-                <View
+                style={{
+                  position: 'absolute',
+                  left: -55,
+                  top: 0,
+                  bottom: 0,
+                  width: 50,
+                  display: 'flex',
+                  flexDirection: 'row',
+                  alignItems: 'center',
+                }}>
+                <Text
                   style={{
-                    position: 'absolute',
-                    left: -55,
-                    top: 0,
-                    bottom: 0,
+                    textAlign: 'right',
                     width: 50,
-                    display: 'flex',
-                    flexDirection: 'row',
-                    alignItems: 'center',
+                    fontSize: 14,
+                    fontWeight: '400',
                   }}>
-                  <Text
-                    style={{
-                      textAlign: 'right',
-                      width: 50,
-                      fontSize: 14,
-                      fontWeight: '400',
-                    }}>
-                    {item.percentage}
-                  </Text>
-                </View>
-                <View
-                  style={{
-                    position: 'absolute',
-                    left: 0,
-                    top: 0,
-                    bottom: 0,
-                    width: item.percentage,
-                    backgroundColor: isDarkMode ? '#4F718D' : '#DBE8ED',
-                    borderRadius: 4,
-                  }}
-                />
-                <Text
-                  style={{
-                    fontSize: 15,
-                    lineHeight: 18,
-                    paddingLeft: 15,
-                    color: isDarkMode ? '#FFFFFF' : '#000000',
-                  }}>
-                  {item.expenditureName}
-                </Text>
-                <Text
-                  style={{
-                    fontSize: 15,
-                    lineHeight: 18,
-                    marginRight: '3%',
-                    color: isDarkMode ? '#FFFFFF' : '#000000',
-                  }}>
-                  {item.expenditurePrice}
+                  {item.percentage}
                 </Text>
               </View>
-            ))}
+              <View
+                style={{
+                  position: 'absolute',
+                  left: 0,
+                  top: 0,
+                  bottom: 0,
+                  width: item.percentage,
+                  backgroundColor: isDarkMode ? '#4F718D' : '#DBE8ED',
+                  borderRadius: 4,
+                }}
+              />
+              <Text
+                style={{
+                  fontSize: 15,
+                  lineHeight: 18,
+                  paddingLeft: 15,
+                  color: isDarkMode ? '#FFFFFF' : '#000000',
+                }}>
+                {item.expenditureName}
+              </Text>
+              <Text
+                style={{
+                  fontSize: 15,
+                  lineHeight: 18,
+                  marginRight: '3%',
+                  color: isDarkMode ? '#FFFFFF' : '#000000',
+                }}>
+                {item.expenditurePrice}
+              </Text>
+            </View>
+          ))}
         </View>
       </View>
     </View>

@@ -5,6 +5,7 @@ import {
   VictoryTheme,
   VictoryGroup,
   VictoryLine,
+  VictoryArea,
 } from 'victory-native';
 import {G} from 'react-native-svg';
 import {ScrollView, useColorScheme} from 'react-native';
@@ -116,7 +117,7 @@ export const Chart = ({data, lineVisible, filter}: IProps) => {
           />
         )}
         <VictoryAxis
-          gridComponent={<G />}
+          // gridComponent={<G />}
           tickValues={data?.salesReportsDto.map(item => item.hourOrDayOrWeek)}
           style={{
             axis: {
@@ -131,7 +132,7 @@ export const Chart = ({data, lineVisible, filter}: IProps) => {
           }}
         />
         <VictoryAxis
-          gridComponent={<G />}
+          // gridComponent={<G />}
           dependentAxis
           offsetX={45}
           offsetY={20}
@@ -147,7 +148,7 @@ export const Chart = ({data, lineVisible, filter}: IProps) => {
               fontWeight: '400',
             },
           }}
-        />
+        /> 
       </VictoryChart>
     </ScrollView>
   );
