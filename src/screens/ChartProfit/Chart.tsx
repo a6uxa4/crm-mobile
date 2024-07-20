@@ -15,6 +15,7 @@ interface FilterType {
   selectType: string;
   startPeriod: string;
   endPeriod: string;
+  smSelectType: number;
 }
 
 interface IProps {
@@ -35,19 +36,22 @@ export const Chart = ({data, lineVisible, filter}: IProps) => {
     return null;
   }
 
+  const calcLengthGap = (selectType, smSelectType) => {
+    const lengths = {
+      0: 30,
+      1: smSelectType === 0 ? 60 : 5,
+      2: smSelectType === 0 ? 60 : 110,
+      3: smSelectType === 0 ? 5 : 30,
+    };
+
+    return data?.salesReportsDto?.length * (lengths[selectType] || 0);
+  };
+
   return (
     <ScrollView horizontal showsHorizontalScrollIndicator={false}>
       <VictoryChart
         theme={VictoryTheme.material}
-        width={
-          +filter.selectType === 3
-            ? data?.salesReportsDto?.length * 10
-            : +filter.selectType === 2
-            ? data?.salesReportsDto?.length * 40
-            : +filter.selectType === 0
-            ? data?.salesReportsDto?.length * 30
-            : data?.salesReportsDto?.length * 60
-        }
+        width={calcLengthGap(+filter?.selectType, +filter?.smSelectType)}
         padding={{top: 20, bottom: 50, left: 50, right: 50}}
         height={160}>
         <VictoryGroup offset={10}>
@@ -58,6 +62,10 @@ export const Chart = ({data, lineVisible, filter}: IProps) => {
               x: item.hourOrDayOrWeek,
               y: item.revenue,
             }))}
+            animate={{
+              duration: 2000,
+              onLoad: {duration: 1000},
+            }}
           />
           <VictoryBar
             style={{data: {fill: isDarkMode ? '#AE014A' : '#FF9D9D', width: 8}}}
@@ -66,6 +74,10 @@ export const Chart = ({data, lineVisible, filter}: IProps) => {
               x: item.hourOrDayOrWeek,
               y: item.expenses,
             }))}
+            animate={{
+              duration: 2000,
+              onLoad: {duration: 1000},
+            }}
           />
           <VictoryBar
             style={{data: {fill: isDarkMode ? '#0FC737' : '#01E533', width: 8}}}
@@ -74,6 +86,10 @@ export const Chart = ({data, lineVisible, filter}: IProps) => {
               x: item.hourOrDayOrWeek,
               y: item.profit,
             }))}
+            animate={{
+              duration: 2000,
+              onLoad: {duration: 1000},
+            }}
           />
           <VictoryBar
             style={{data: {fill: isDarkMode ? '#D10404' : '#FB3D3D', width: 8}}}
@@ -82,6 +98,10 @@ export const Chart = ({data, lineVisible, filter}: IProps) => {
               x: item.hourOrDayOrWeek,
               y: item.loss,
             }))}
+            animate={{
+              duration: 2000,
+              onLoad: {duration: 1000},
+            }}
           />
         </VictoryGroup>
         {lineVisible.isProfitability && (

@@ -12,6 +12,7 @@ interface FilterType {
   selectType: string;
   startPeriod: string;
   endPeriod: string;
+  smSelectType: number;
 }
 
 interface IProps {
@@ -58,7 +59,7 @@ export const Content = ({
         data={data}
         ExpensesData={ExpensesData}
       />
-      <ChartProfit data={data} filter={filter} />
+      <ChartProfit data={data} filter={filter} setFilter={setFilter} />
       <ChartOrder />
     </View>
   );
