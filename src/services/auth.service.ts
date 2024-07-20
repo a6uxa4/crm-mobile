@@ -13,8 +13,11 @@ const authService = createApi({
         body,
       }),
     }),
+    identityUser: builder.query<any, void>({
+      query: () => 'identity/users/user'
+    })
   }),
 });
 export default authService;
 
-export const {useLoginMutation} = authService;
+export const {useLoginMutation, useIdentityUserQuery, useLazyIdentityUserQuery} = authService;

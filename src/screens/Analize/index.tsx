@@ -60,6 +60,9 @@ export function Analize({
       if (filter.productId === 'all' || !filter.productId || !filter['productId'] === undefined) {
         if (routes.length > 3) {
           const res = [...routes];
+          if(index === 3){
+            setIndex(2)
+          }
           res.shift()
           setRoutes(res);
         }
