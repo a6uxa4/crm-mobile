@@ -22,6 +22,7 @@ interface IProps {
 }
 
 export const Chart = ({data, lineVisible, filter}: IProps) => {
+
   const isDarkMode = useColorScheme() === 'dark';
 
   const calcLengthGap = (selectType, smSelectType) => {

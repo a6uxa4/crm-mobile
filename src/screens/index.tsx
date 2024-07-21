@@ -1,5 +1,5 @@
 import {View} from 'react-native';
-import {Navbar} from './Navbar';
+import {Navbar} from './navbar';
 import {Revenues} from './Revenues';
 import {Expenses} from './Expenses';
 import {Analize} from './Analize';
