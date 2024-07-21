@@ -90,4 +90,16 @@ export const formattedNumber = (number: number) => {
   return formattedOutput
 }
 
+export const formatDate = (isoDateStr: any) => {
+  const dateObj = new Date(isoDateStr);
+
+  const year = dateObj.getFullYear();
+  const month = (dateObj.getMonth() + 1).toString().padStart(2, '0');
+  const day = dateObj.getDate().toString().padStart(2, '0');
+
+  return `${year}-${month}-${day}`;
+}
+
+
+
 
