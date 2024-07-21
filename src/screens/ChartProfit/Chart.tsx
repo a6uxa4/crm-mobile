@@ -93,7 +93,7 @@ export const Chart = ({data, lineVisible, filter}: IProps) => {
           />
         </VictoryGroup>
         {lineVisible.isProfitability && (
-          <VictoryPortal >
+          <VictoryPortal>
             <VictoryLine
               interpolation="natural"
               style={{
