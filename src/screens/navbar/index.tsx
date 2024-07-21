@@ -9,7 +9,6 @@ import {
 } from 'react-native';
 import {ModalDialog, ModalDialogHandle} from 'react-native-propel-kit';
 import {MiniCalendar} from '../../components/MiniCalendar';
-import { formatDate } from '../../utils/helpers';
 import { FilterType } from '../../common';
 
 interface IProps {
@@ -19,8 +18,6 @@ interface IProps {
 
 export const Navbar = ({setFilter, filter}: IProps) => {
   const isDarkMode = useColorScheme() === 'dark';
-
-  console.log(filter, 'this is filter');
 
   const [activeTab, setActiveTab] = useState(0);
   const [translateX] = useState(new Animated.Value(0));
@@ -41,7 +38,7 @@ export const Navbar = ({setFilter, filter}: IProps) => {
       modalDialogRef.current.show();
     }
     setActiveTab(index);
-    setFilter({selectType: String(index), endPeriod: '', startPeriod: ''});
+    setFilter({selectType: String(index)});
     const tabWidth = containerWidth / tabs.length;
     Animated.spring(translateX, {
       toValue: index * tabWidth,
@@ -53,16 +50,6 @@ export const Navbar = ({setFilter, filter}: IProps) => {
     setPeriod(newPeriod);
   };
 
-  const confirmDate = () => {
-    setFilter({
-      startPeriod: formatDate(period.startPeriod),
-      endPeriod: formatDate(period.startPeriod),
-    });
-    clean();
-  };
-
-  const clean = () => setPeriod({endPeriod: null, startPeriod: null});
-
   return (
     <>
       <ModalDialog
@@ -73,9 +60,8 @@ export const Navbar = ({setFilter, filter}: IProps) => {
         onCancel={() => {
           modalDialogRef.current.hide();
           handleTabPress(0);
-          clean();
         }}
-        onConfirm={confirmDate}>
+        onConfirm={() => {}}>
         <MiniCalendar value={period} onChange={handlePeriodChange} />
       </ModalDialog>
       <View

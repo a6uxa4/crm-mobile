@@ -57,7 +57,7 @@ export const Expenses = ({data}: any) => {
                     width: 50,
                     fontSize: 14,
                     fontWeight: '400',
-                    color: isDarkMode ? 'white' : '#3D3F44',
+                    color: isDarkMode? 'white': '#3D3F44'
                   }}>
                   {item.percentage}
                 </Text>
