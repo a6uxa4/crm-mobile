@@ -76,28 +76,39 @@ export const Main = () => {
   const {data: voronkaData = initStateVoronkaData, refetch: voronkaRefetch} =
     useGetFullStatsStatisticQuery(params, {skip: !IsAuthentication?.accessToken});
 
-  const globalRefetch = useCallback(() => {
-    return Promise.all([
-      refetch(),
-      ordersRefetch(),
-      expenditureRefetch(),
-      remainRefetch(),
-      voronkaRefetch(),
+    const globalRefetch = useCallback(() => {
+      const refetchPromises = [];
+    
+      if (IsAuthentication?.accessToken) {
+        refetchPromises.push(refetch());
+        refetchPromises.push(ordersRefetch());
+        refetchPromises.push(expenditureRefetch());
+        refetchPromises.push(voronkaRefetch());
+      }
+    
+      if (filter.productId) {
+        refetchPromises.push(remainRefetch());
+      }
+    
+      return Promise.all(refetchPromises);
+    }, [
+      IsAuthentication?.accessToken,
+      filter.productId,
+      refetch,
+      ordersRefetch,
+      expenditureRefetch,
+      remainRefetch,
+      voronkaRefetch,
     ]);
-  }, [
-    refetch,
-    ordersRefetch,
-    expenditureRefetch,
-    remainRefetch,
-    voronkaRefetch,
-  ]);
 
   const onRefresh = useCallback(() => {
+    if (refreshing) return;
+  
     setRefreshing(true);
     globalRefetch().then(() => {
       setTimeout(() => {
         setRefreshing(false);
-      }, 1000);
+      }, 2000);
     });
   }, [globalRefetch]);
 
