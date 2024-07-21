@@ -21,6 +21,8 @@ interface IProps {
 }
 
 export const ChartProfit = ({data, filter, setFilter}: IProps) => {
+  if (!data) return null;
+
   const isDarkMode = useColorScheme() === 'dark';
 
   const [activeTab, setActiveTab] = useState(0);

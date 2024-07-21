@@ -12,6 +12,8 @@ interface IProps {
 }
 
 export const ChartOrder = ({data, filter}: IProps) => {
+  if (!data) return null;
+
   const isDarkMode = useColorScheme() === 'dark';
 
   const [lineVisible, setLineVisible] = useState({
