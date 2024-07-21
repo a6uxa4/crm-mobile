@@ -34,20 +34,14 @@ export const Chart = ({data, lineVisible, filter}: IProps) => {
 
     return data?.salesReportsDto?.length * (lengths[selectType] || 0);
   };
-  const maxValue = Math.max(
-    ...data.salesReportsDto.map(item =>
-      Math.max(item.revenue, item.expenses, item.profit, item.loss),
-    ),
-  );
 
   return (
     <ScrollView horizontal showsHorizontalScrollIndicator={false}>
       <VictoryChart
         theme={VictoryTheme.material}
-        width={calcLengthGap(+filter?.selectType, +filter?.smSelectType)}
+        width={calcLengthGap(+filter.selectType, +filter.smSelectType)}
         padding={{top: 20, bottom: 50, left: 50, right: 50}}
-        height={160}
-        domain={{y: [0, maxValue]}}>
+        height={160}>
         <VictoryGroup offset={10}>
           <VictoryBar
             style={{data: {fill: isDarkMode ? '#048FF3' : '#70C3FF', width: 8}}}

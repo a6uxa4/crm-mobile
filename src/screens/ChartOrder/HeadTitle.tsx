@@ -1,7 +1,12 @@
 import {StyleSheet, useColorScheme, View, Text} from 'react-native';
 import {Badge} from '../../components/Badge';
+import {IOrdersData} from '../../common';
 
-export const HeadTitle = () => {
+interface IProps {
+  data: IOrdersData;
+}
+
+export const HeadTitle = ({data}: IProps) => {
   const isDarkMode = useColorScheme() === 'dark';
 
   return (
@@ -18,7 +23,7 @@ export const HeadTitle = () => {
               style.infoSum,
               {color: isDarkMode ? '#2898E9' : '#85B2D6'},
             ]}>
-            95
+            {data?.allOrdersCount}
           </Text>
           <Text
             style={[
@@ -35,7 +40,7 @@ export const HeadTitle = () => {
               style.infoSum,
               {color: isDarkMode ? '#415FFF' : '#85B2D6'},
             ]}>
-            42
+            {data?.allRansoms}
           </Text>
           <Text
             style={[
@@ -47,7 +52,9 @@ export const HeadTitle = () => {
         </View>
         <View style={style.infoInner}>
           <Badge backgroundColor="#FF6580" />
-          <Text style={[style.infoSum, {color: '#FB3D3D'}]}>24</Text>
+          <Text style={[style.infoSum, {color: '#FB3D3D'}]}>
+            {data?.allReturns}
+          </Text>
           <Text
             style={[
               style.infoText,
@@ -57,7 +64,9 @@ export const HeadTitle = () => {
           </Text>
         </View>
         <View style={style.infoInner}>
-          <Text style={[style.infoSum, {color: '#909194'}]}>53</Text>
+          <Text style={[style.infoSum, {color: '#909194'}]}>
+            {data?.allRejects}
+          </Text>
           <Text
             style={[
               style.infoText,

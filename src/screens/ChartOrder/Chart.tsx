@@ -5,154 +5,129 @@ import {
   VictoryTheme,
   VictoryGroup,
   VictoryLine,
+  VictoryPortal,
 } from 'victory-native';
-import {G} from 'react-native-svg';
 import {ScrollView, useColorScheme} from 'react-native';
+import {FilterType, IOrdersData} from '../../common';
 
-export const Chart = () => {
+interface IProps {
+  lineVisible: {isAdvertExpenses: boolean; isCtr: boolean; isCpc: boolean};
+  filter: FilterType;
+  data: IOrdersData;
+}
+
+export const Chart = ({lineVisible, filter, data}: IProps) => {
   const isDarkMode = useColorScheme() === 'dark';
 
-  const hourlyData = Array.from({length: 24}, (_, i) =>
-    (i + 1 + '').padStart(2, '0'),
-  );
+  const calcLengthGap = (selectType, smSelectType) => {
+    const lengths = {
+      0: 30,
+      1: smSelectType === 0 ? 60 : 5,
+      2: smSelectType === 0 ? 60 : 110,
+      3: smSelectType === 0 ? 5 : 30,
+    };
+
+    return data?.orderReportsDto?.length * (lengths[selectType] || 0);
+  };
 
   return (
     <ScrollView horizontal showsHorizontalScrollIndicator={false}>
       <VictoryChart
         theme={VictoryTheme.material}
-        width={hourlyData.length * 50}
+        width={calcLengthGap(+filter.selectType, +filter.smSelectType)}
         padding={{top: 20, bottom: 50, left: 50, right: 50}}
         height={245}>
         <VictoryGroup offset={10}>
           <VictoryBar
             style={{data: {fill: isDarkMode ? '#2898E9' : '#ADD1EB', width: 8}}}
             cornerRadius={{top: 2, bottom: 2}}
-            data={[
-              {x: '01', y: 100},
-              {x: '02', y: 200},
-              {x: '03', y: 170},
-              {x: '04', y: 180},
-              {x: '05', y: 220},
-              {x: '06', y: 180},
-              {x: '07', y: 150},
-              {x: '08', y: 80},
-              {x: '09', y: 40},
-              {x: '10', y: 200},
-            ]}
+            data={data?.orderReportsDto.map(item => ({
+              x: item.hourOrDayOrWeek,
+              y: item.ordersCount,
+            }))}
           />
           <VictoryBar
             style={{data: {fill: isDarkMode ? '#415FFF' : '#717FC8', width: 8}}}
             cornerRadius={{top: 2, bottom: 2}}
-            data={[
-              {x: '01', y: 80},
-              {x: '02', y: 90},
-              {x: '03', y: 100},
-              {x: '04', y: 120},
-              {x: '05', y: 80},
-              {x: '06', y: 40},
-              {x: '07', y: 200},
-              {x: '08', y: 90},
-              {x: '09', y: 50},
-              {x: '10', y: 60},
-            ]}
+            data={data?.orderReportsDto.map(item => ({
+              x: item.hourOrDayOrWeek,
+              y: item.ransoms,
+            }))}
           />
           <VictoryBar
             style={{data: {fill: isDarkMode ? '#FB3D3D' : '#FB3D3D', width: 8}}}
             cornerRadius={{top: 2, bottom: 2}}
-            data={[
-              {x: '01', y: -30},
-              {x: '03', y: -20},
-              {x: '04', y: -20},
-              {x: '05', y: -20},
-              {x: '06', y: -10},
-              {x: '07', y: -20},
-              {x: '08', y: -20},
-              {x: '09', y: -10},
-              {x: '10', y: -30},
-            ]}
+            data={data?.orderReportsDto.map(item => ({
+              x: item.hourOrDayOrWeek,
+              y: item.returns,
+            }))}
           />
         </VictoryGroup>
-        <VictoryLine
-          interpolation="natural"
-          style={{data: {stroke: '#FF9C07', strokeWidth: 1.5}}}
-          data={[
-            {x: '01', y: 200},
-            {x: '02', y: 190},
-            {x: '03', y: 120},
-            {x: '04', y: 150},
-            {x: '05', y: 170},
-            {x: '06', y: 140},
-            {x: '07', y: 160},
-            {x: '08', y: 200},
-            {x: '09', y: 130},
-            {x: '10', y: 160},
-          ]}
-        />
-        <VictoryLine
-          interpolation="natural"
-          style={{data: {stroke: '#0181F8', strokeWidth: 1.5}}}
-          data={[
-            {x: '01', y: 160},
-            {x: '02', y: 130},
-            {x: '03', y: 200},
-            {x: '04', y: 160},
-            {x: '05', y: 140},
-            {x: '06', y: 130},
-            {x: '07', y: 120},
-            {x: '08', y: 160},
-            {x: '09', y: 170},
-            {x: '10', y: 130},
-          ]}
-        />
-        <VictoryLine
-          interpolation="natural"
-          style={{
-            data: {
-              stroke: '#3BDF02',
-              strokeWidth: 1.5,
-              strokeDasharray: '5,5',
-              strokeDashoffset: 2,
-            },
-          }}
-          data={[
-            {x: '01', y: 140},
-            {x: '02', y: 170},
-            {x: '03', y: 200},
-            {x: '04', y: 140},
-            {x: '05', y: 180},
-            {x: '06', y: 150},
-            {x: '07', y: 180},
-            {x: '08', y: 200},
-            {x: '09', y: 140},
-            {x: '10', y: 120},
-          ]}
-        />
-        <VictoryLine
-          interpolation="natural"
-          style={{
-            data: {
-              stroke: '#B777CD',
-              strokeWidth: 1.5,
-              strokeDasharray: '5,5',
-              strokeDashoffset: 2,
-            },
-          }}
-          data={[
-            {x: '01', y: 90},
-            {x: '02', y: 120},
-            {x: '03', y: 30},
-            {x: '04', y: 50},
-            {x: '05', y: 200},
-            {x: '06', y: 150},
-            {x: '07', y: 120},
-            {x: '08', y: 160},
-            {x: '09', y: 50},
-            {x: '10', y: 70},
-          ]}
-        />
+        {lineVisible.isAdvertExpenses && (
+          <VictoryPortal>
+            <VictoryLine
+              animate={{
+                duration: 1000,
+                onLoad: {duration: 500},
+              }}
+              interpolation="natural"
+              style={{data: {stroke: '#0181F8', strokeWidth: 1.5}}}
+              data={data?.orderReportsDto.map(item => ({
+                x: item.hourOrDayOrWeek,
+                y: item.advertExpenses,
+              }))}
+            />
+          </VictoryPortal>
+        )}
+        {lineVisible.isCpc && (
+          <VictoryPortal>
+            <VictoryLine
+              animate={{
+                duration: 1000,
+                onLoad: {duration: 500},
+              }}
+              interpolation="natural"
+              style={{
+                data: {
+                  stroke: '#3BDF02',
+                  strokeWidth: 1.5,
+                  strokeDasharray: '5,5',
+                  strokeDashoffset: 2,
+                },
+              }}
+              data={data?.orderReportsDto.map(item => ({
+                x: item.hourOrDayOrWeek,
+                y: item.cpc,
+              }))}
+            />
+          </VictoryPortal>
+        )}
+        {lineVisible.isCtr && (
+          <VictoryPortal>
+            <VictoryLine
+              animate={{
+                duration: 1000,
+                onLoad: {duration: 500},
+              }}
+              interpolation="natural"
+              style={{
+                data: {
+                  stroke: '#B777CD',
+                  strokeWidth: 1.5,
+                  strokeDasharray: '5,5',
+                  strokeDashoffset: 2,
+                },
+              }}
+              data={data?.orderReportsDto.map(item => ({
+                x: item.hourOrDayOrWeek,
+                y: item.ctr,
+              }))}
+            />
+          </VictoryPortal>
+        )}
         <VictoryAxis
           gridComponent={<></>}
-          tickValues={hourlyData}
+          tickValues={data?.orderReportsDto.map(item => item.hourOrDayOrWeek)}
           style={{
             axis: {
               stroke: isDarkMode ? '#FFFFFF' : '#405385',
@@ -167,7 +142,7 @@ export const Chart = () => {
         />
         <VictoryAxis
           gridComponent={<></>}
-          tickValues={[0, 90, 170, 250]}
+          tickFormat={t => `${Math.round(t)}`}
           dependentAxis
           offsetX={45}
           offsetY={20}

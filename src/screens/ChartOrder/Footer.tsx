@@ -1,11 +1,20 @@
 import {StyleSheet, Text, useColorScheme, View} from 'react-native';
 import Checkbox from '../../components/Checkbox';
-import {useState} from 'react';
+import {FilterType} from '../../common';
 
-export const Footer = () => {
+interface IProps {
+  setLineVisible: (e: {
+    isAdvertExpenses: boolean;
+    isCtr: boolean;
+    isCpc: boolean;
+  }) => void;
+  lineVisible: {isAdvertExpenses: boolean; isCtr: boolean; isCpc: boolean};
+  filter: FilterType;
+}
+
+export const Footer = ({setLineVisible, lineVisible, filter}: IProps) => {
   const isDarkMode = useColorScheme() === 'dark';
 
-  const [state, setState] = useState(false);
   return (
     <View
       style={[
@@ -17,8 +26,15 @@ export const Footer = () => {
           borderColor="#9959AF"
           backgroundColor="#B777CD"
           isBg={isDarkMode ? '#1A2A3D' : '#f6eef9'}
-          isChecked={state}
-          onPress={() => setState(!state)}
+          isChecked={lineVisible.isCtr}
+          onPress={() => {
+            +filter?.selectType === 0
+              ? null
+              : setLineVisible({
+                  ...lineVisible,
+                  isCtr: !lineVisible.isCtr,
+                });
+          }}
         />
         <View
           style={{
@@ -41,8 +57,15 @@ export const Footer = () => {
           borderColor="#32C000"
           backgroundColor="#3BDF02"
           isBg={isDarkMode ? '#1A2A3D' : '#d8ffe0'}
-          isChecked={state}
-          onPress={() => setState(!state)}
+          isChecked={lineVisible.isCpc}
+          onPress={() => {
+            +filter?.selectType === 0
+              ? null
+              : setLineVisible({
+                  ...lineVisible,
+                  isCpc: !lineVisible.isCpc,
+                });
+          }}
         />
         <View
           style={{
@@ -65,8 +88,15 @@ export const Footer = () => {
           borderColor="#0469C7"
           backgroundColor="#2093FD"
           isBg={isDarkMode ? '#1A2A3D' : '#d8f2ff'}
-          isChecked={state}
-          onPress={() => setState(!state)}
+          isChecked={lineVisible.isAdvertExpenses}
+          onPress={() => {
+            +filter?.selectType === 0
+              ? null
+              : setLineVisible({
+                  ...lineVisible,
+                  isAdvertExpenses: !lineVisible.isAdvertExpenses,
+                });
+          }}
         />
         <View style={{width: '80%', height: 3, backgroundColor: '#0181F8'}} />
         <Text
@@ -75,23 +105,6 @@ export const Footer = () => {
             {color: isDarkMode ? '#FFFFFF' : '#3D3F44'},
           ]}>
           расходы на рекламу
-        </Text>
-      </View>
-      <View style={style.containerInner}>
-        <Checkbox
-          borderColor="#AC6A08"
-          backgroundColor="#FF9C07"
-          isBg={isDarkMode ? '#1A2A3D' : '#fff2c5'}
-          isChecked={state}
-          onPress={() => setState(!state)}
-        />
-        <View style={{width: '80%', height: 3, backgroundColor: '#FF9C07'}} />
-        <Text
-          style={[
-            style.innerText,
-            {color: isDarkMode ? '#FFFFFF' : '#3D3F44'},
-          ]}>
-          оборачиваемость
         </Text>
       </View>
     </View>

@@ -52,7 +52,7 @@ export const Content = ({
         ExpensesData={ExpensesData}
       />
       <ChartProfit data={data} filter={filter} setFilter={setFilter} />
-      <ChartOrder />
+      <ChartOrder data={ordersData} filter={filter} setFilter={setFilter} />
     </View>
   );
 };
