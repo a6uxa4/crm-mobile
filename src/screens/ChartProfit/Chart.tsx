@@ -48,8 +48,6 @@ export const Chart = ({data, lineVisible, filter}: IProps) => {
     ),
   );
 
-  console.log(data);
-
   return (
     <ScrollView horizontal showsHorizontalScrollIndicator={false}>
       <VictoryChart
