@@ -1,9 +1,11 @@
 import {StyleSheet, useColorScheme, View, Platform, Text} from 'react-native';
 import {Select} from 'react-native-propel-kit';
+import {useIdentityUserQuery} from '../../services/auth.service';
 import {useGetProductsQuery} from '../../services/base.service';
 import {transformToOptions} from '../../utils/helpers';
-import {useSelector, useDispatch} from 'react-redux';
+import {useDispatch} from 'react-redux';
 import {setProduct} from '../../store/slices/helper.slice';
+import { useAuth } from '../../hooks/useAuth';
 
 interface FilterType {
   productId?: string;
@@ -15,10 +17,12 @@ interface IProps {
 }
 
 const SelectProduct = ({setFilter, filter}: IProps) => {
+  const IsAuthentication = useAuth();
+  const {data: user} = useIdentityUserQuery(undefined, {skip: !IsAuthentication?.accessToken});
   const dispatch = useDispatch();
   const isDarkMode = useColorScheme() === 'dark';
 
-  const {data = []} = useGetProductsQuery();
+  const {data = []} = useGetProductsQuery(undefined, {skip: !IsAuthentication?.accessToken});
 
   return (
     <View style={styles.container}>
@@ -31,7 +35,7 @@ const SelectProduct = ({setFilter, filter}: IProps) => {
           },
         ]}>
         <Text style={{color: isDarkMode ? '#FFFFFF' : '#3D3F44'}}>
-          Магазины иванов
+          {user?.ip}
         </Text>
       </View>
       <Select
@@ -40,12 +44,10 @@ const SelectProduct = ({setFilter, filter}: IProps) => {
         cancelTitle="Отмена"
         onChange={e => {
           if (e !== 'all') {
-            setFilter({productId: e});
             const filtered = data.filter(item => Number(item.id) === Number(e));
             dispatch(setProduct(filtered[0].vendorCode));
-          } else {
-            setProduct({productId: 'all'});
           }
+          setFilter({productId: e});
         }}
         value={filter.productId}
         style={[

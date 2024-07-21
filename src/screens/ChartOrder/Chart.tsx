@@ -151,7 +151,7 @@ export const Chart = () => {
           ]}
         />
         <VictoryAxis
-          gridComponent={<G />}
+          gridComponent={<></>}
           tickValues={hourlyData}
           style={{
             axis: {
@@ -166,7 +166,7 @@ export const Chart = () => {
           }}
         />
         <VictoryAxis
-          gridComponent={<G />}
+          gridComponent={<></>}
           tickValues={[0, 90, 170, 250]}
           dependentAxis
           offsetX={45}
