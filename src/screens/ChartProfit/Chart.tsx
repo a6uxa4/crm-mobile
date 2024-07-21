@@ -32,10 +32,6 @@ interface IProps {
 export const Chart = ({data, lineVisible, filter}: IProps) => {
   const isDarkMode = useColorScheme() === 'dark';
 
-  if (!data || !data?.salesReportsDto || data?.salesReportsDto?.length === 0) {
-    return null;
-  }
-
   const calcLengthGap = (selectType, smSelectType) => {
     const lengths = {
       0: 30,
@@ -51,6 +47,8 @@ export const Chart = ({data, lineVisible, filter}: IProps) => {
       Math.max(item.revenue, item.expenses, item.profit, item.loss),
     ),
   );
+
+  console.log(data);
 
   return (
     <ScrollView horizontal showsHorizontalScrollIndicator={false}>
@@ -95,7 +93,7 @@ export const Chart = ({data, lineVisible, filter}: IProps) => {
           />
         </VictoryGroup>
         {lineVisible.isProfitability && (
-          <VictoryPortal>
+          <VictoryPortal >
             <VictoryLine
               interpolation="natural"
               style={{
