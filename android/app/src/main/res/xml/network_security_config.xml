@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="utf-8"?>
+<network-security-config>
+    <domain-config cleartextTrafficPermitted="false">
+        <domain includeSubdomains="true">back.impulsefinance.ru</domain>
+        <domain includeSubdomains="true">84.201.167.201</domain>
+    </domain-config>
+</network-security-config>
