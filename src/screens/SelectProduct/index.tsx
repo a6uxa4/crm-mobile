@@ -5,11 +5,8 @@ import {useGetProductsQuery} from '../../services/base.service';
 import {transformToOptions} from '../../utils/helpers';
 import {useDispatch} from 'react-redux';
 import {setProduct} from '../../store/slices/helper.slice';
-import { useAuth } from '../../hooks/useAuth';
-
-interface FilterType {
-  productId?: string;
-}
+import {useAuth} from '../../hooks/useAuth';
+import {FilterType} from '../../common';
 
 interface IProps {
   setFilter: (filter: Partial<FilterType>) => void;
@@ -18,11 +15,15 @@ interface IProps {
 
 const SelectProduct = ({setFilter, filter}: IProps) => {
   const IsAuthentication = useAuth();
-  const {data: user} = useIdentityUserQuery(undefined, {skip: !IsAuthentication?.accessToken});
+  const {data: user} = useIdentityUserQuery(undefined, {
+    skip: !IsAuthentication?.accessToken,
+  });
   const dispatch = useDispatch();
   const isDarkMode = useColorScheme() === 'dark';
 
-  const {data = []} = useGetProductsQuery(undefined, {skip: !IsAuthentication?.accessToken});
+  const {data = []} = useGetProductsQuery(undefined, {
+    skip: !IsAuthentication?.accessToken,
+  });
 
   return (
     <View style={styles.container}>

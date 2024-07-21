@@ -69,60 +69,68 @@ export interface IProduct {
 }
 
 export interface IOrdersData {
-  allCpc: string
-  allCtr: string
-  allOrdersCount: number
-  allRansoms: number
-  allRejects: number
-  allReturns: number
-  drr: string
-  ransoms: string
-  turnOver: number
-  orderReportsDto: IOrderArray[]
+  allCpc: string;
+  allCtr: string;
+  allOrdersCount: number;
+  allRansoms: number;
+  allRejects: number;
+  allReturns: number;
+  drr: string;
+  ransoms: string;
+  turnOver: number;
+  orderReportsDto: IOrderArray[];
 }
 
 export interface IOrderArray {
-  advertExpenses: number
-  cpc: string
-  ctr: string
-  date: string
-  hourOrDayOrWeek: string
-  ordersCount: number
-  ransoms: number
-  rejects: number
-  returns: number
-  turnOver: number
+  advertExpenses: number;
+  cpc: string;
+  ctr: string;
+  date: string;
+  hourOrDayOrWeek: string;
+  ordersCount: number;
+  ransoms: number;
+  rejects: number;
+  returns: number;
+  turnOver: number;
 }
 
 export interface IFullStatsStatistic {
-  views: Views
-  clicks: Clicks
-  basket: Basket
-  ordersCount: OrdersCount
-  buyoutsCount: BuyoutsCount
+  views: Views;
+  clicks: Clicks;
+  basket: Basket;
+  ordersCount: OrdersCount;
+  buyoutsCount: BuyoutsCount;
 }
 
 export interface Views {
-  quantity: number
-  percentage: string
+  quantity: number;
+  percentage: string;
 }
 
 export interface Clicks {
-  quantity: number
-  percentage: string
+  quantity: number;
+  percentage: string;
 }
 
 export interface Basket {
-  quantity: number
-  percentage: string
+  quantity: number;
+  percentage: string;
 }
 
 export interface OrdersCount {
-  quantity: number
-  percentage: string
+  quantity: number;
+  percentage: string;
 }
 
 export interface BuyoutsCount {
-  quantity: number
-  percentage: string
+  quantity: number;
+  percentage: string;
+}
+
+export interface FilterType {
+  productId: string;
+  selectType: string;
+  startPeriod: string;
+  endPeriod: string;
+  smSelectType: number;
 }

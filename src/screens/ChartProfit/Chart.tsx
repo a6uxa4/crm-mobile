@@ -8,15 +8,7 @@ import {
   VictoryPortal,
 } from 'victory-native';
 import {ScrollView, useColorScheme} from 'react-native';
-import {ISalesData} from '../../common';
-
-interface FilterType {
-  productId: string;
-  selectType: string;
-  startPeriod: string;
-  endPeriod: string;
-  smSelectType: number;
-}
+import {FilterType, ISalesData} from '../../common';
 
 interface IProps {
   data: ISalesData;
@@ -93,6 +85,10 @@ export const Chart = ({data, lineVisible, filter}: IProps) => {
         {lineVisible.isProfitability && (
           <VictoryPortal>
             <VictoryLine
+              animate={{
+                duration: 1000,
+                onLoad: {duration: 500},
+              }}
               interpolation="natural"
               style={{
                 data: {
@@ -112,6 +108,10 @@ export const Chart = ({data, lineVisible, filter}: IProps) => {
         {lineVisible.isRevenue && (
           <VictoryPortal>
             <VictoryLine
+              animate={{
+                duration: 1000,
+                onLoad: {duration: 500},
+              }}
               interpolation="natural"
               style={{data: {stroke: '#88C0FF', strokeWidth: 1.5}}}
               data={data?.salesReportsDto.map(item => ({
@@ -124,6 +124,10 @@ export const Chart = ({data, lineVisible, filter}: IProps) => {
         {lineVisible.isProfit && (
           <VictoryPortal>
             <VictoryLine
+              animate={{
+                duration: 1000,
+                onLoad: {duration: 500},
+              }}
               interpolation="natural"
               style={{data: {stroke: '#04D632', strokeWidth: 1.5}}}
               data={data?.salesReportsDto.map(item => ({
@@ -136,6 +140,10 @@ export const Chart = ({data, lineVisible, filter}: IProps) => {
         {lineVisible.isMargin && (
           <VictoryPortal>
             <VictoryLine
+              animate={{
+                duration: 1000,
+                onLoad: {duration: 500},
+              }}
               interpolation="natural"
               style={{data: {stroke: '#B777CD', strokeWidth: 1.5}}}
               data={data?.salesReportsDto.map(item => ({

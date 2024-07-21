@@ -1,5 +1,6 @@
 import {StyleSheet, Text, useColorScheme, View} from 'react-native';
 import Checkbox from '../../components/Checkbox';
+import { FilterType } from '../../common';
 
 interface IProps {
   lineVisible: {
@@ -14,9 +15,10 @@ interface IProps {
     isProfitability: boolean;
     isMargin: boolean;
   }) => void;
+  filter: FilterType;
 }
 
-export const Footer = ({lineVisible, setLineVisible}: IProps) => {
+export const Footer = ({lineVisible, setLineVisible, filter}: IProps) => {
   const isDarkMode = useColorScheme() === 'dark';
 
   return (
@@ -32,7 +34,12 @@ export const Footer = ({lineVisible, setLineVisible}: IProps) => {
           isBg={isDarkMode ? '#1A2A3D' : '#daeaff'}
           isChecked={lineVisible.isRevenue}
           onPress={() =>
-            setLineVisible({...lineVisible, isRevenue: !lineVisible.isRevenue})
+            +filter?.selectType === 0
+              ? null
+              : setLineVisible({
+                  ...lineVisible,
+                  isRevenue: !lineVisible.isRevenue,
+                })
           }
         />
         <View style={{width: '80%', height: 3, backgroundColor: '#88C0FF'}} />
@@ -51,7 +58,12 @@ export const Footer = ({lineVisible, setLineVisible}: IProps) => {
           isBg={isDarkMode ? '#1A2A3D' : '#d8ffe0'}
           isChecked={lineVisible.isProfit}
           onPress={() =>
-            setLineVisible({...lineVisible, isProfit: !lineVisible.isProfit})
+            +filter?.selectType === 0
+              ? null
+              : setLineVisible({
+                  ...lineVisible,
+                  isProfit: !lineVisible.isProfit,
+                })
           }
         />
         <View style={{width: '80%', height: 3, backgroundColor: '#04D632'}} />
@@ -70,7 +82,12 @@ export const Footer = ({lineVisible, setLineVisible}: IProps) => {
           isBg={isDarkMode ? '#1A2A3D' : '#ECE0F0'}
           isChecked={lineVisible.isMargin}
           onPress={() =>
-            setLineVisible({...lineVisible, isMargin: !lineVisible.isMargin})
+            +filter?.selectType === 0
+              ? null
+              : setLineVisible({
+                  ...lineVisible,
+                  isMargin: !lineVisible.isMargin,
+                })
           }
         />
         <View style={{width: '80%', height: 3, backgroundColor: '#B777CD'}} />
@@ -89,10 +106,12 @@ export const Footer = ({lineVisible, setLineVisible}: IProps) => {
           isBg={isDarkMode ? '#1A2A3D' : '#cffbfe'}
           isChecked={lineVisible.isProfitability}
           onPress={() =>
-            setLineVisible({
-              ...lineVisible,
-              isProfitability: !lineVisible.isProfitability,
-            })
+            +filter?.selectType === 0
+              ? null
+              : setLineVisible({
+                  ...lineVisible,
+                  isProfitability: !lineVisible.isProfitability,
+                })
           }
         />
         <View

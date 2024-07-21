@@ -5,15 +5,7 @@ import {Expenses} from './Expenses';
 import {Analize} from './Analize';
 import {ChartProfit} from './ChartProfit';
 import {ChartOrder} from './ChartOrder';
-import {ISalesData, IOrdersData} from '../common';
-
-interface FilterType {
-  productId: string;
-  selectType: string;
-  startPeriod: string;
-  endPeriod: string;
-  smSelectType: number;
-}
+import {ISalesData, IOrdersData, FilterType} from '../common';
 
 interface IProps {
   setFilter: (filter: Partial<FilterType>) => void;

@@ -12,15 +12,7 @@ import {
 import {HeadTitle} from './HeadTitle';
 import {Chart} from './Chart';
 import {Footer} from './Footer';
-import {ISalesData} from '../../common';
-
-interface FilterType {
-  productId: string;
-  selectType: string;
-  startPeriod: string;
-  endPeriod: string;
-  smSelectType: number;
-}
+import {FilterType, ISalesData} from '../../common';
 
 interface IProps {
   data: ISalesData;
@@ -126,7 +118,11 @@ export const ChartProfit = ({data, filter, setFilter}: IProps) => {
       )}
       <HeadTitle />
       <Chart data={data} lineVisible={lineVisible} filter={filter} />
-      <Footer lineVisible={lineVisible} setLineVisible={setLineVisible} />
+      <Footer
+        lineVisible={lineVisible}
+        setLineVisible={setLineVisible}
+        filter={filter}
+      />
     </View>
   );
 };

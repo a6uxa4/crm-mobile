@@ -9,11 +9,7 @@ import {
 } from 'react-native';
 import {ModalDialog, ModalDialogHandle} from 'react-native-propel-kit';
 import {MiniCalendar} from '../../components/MiniCalendar';
-
-interface FilterType {
-  productId: string;
-  selectType: string;
-}
+import { FilterType } from '../../common';
 
 interface IProps {
   setFilter: (filter: Partial<FilterType>) => void;
